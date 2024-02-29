@@ -41,7 +41,7 @@ nav {
 
 Estos también se adaptan cuando el ancho de la pantalla es menor a 920px, para ello se han utilizado de nuevo ***@media-queries*** 
 
-![resultado estilo mobile](src/content/readme_img/mobile_readme.png)
+![resultado estilo mobile](src/content/readme_img/mobile_readme.PNG)
 
 ### Apartado opcional - Transiciones y animaciones:
 
