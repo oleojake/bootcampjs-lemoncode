@@ -1,4 +1,4 @@
-# Laboratorio Módulo 2 - Tipos de datos y Operadores
+# Laboratorio Módulo 3 - Variables
 ## Descripción del ejercicio:
 
 ### Grupos Musicales (TypeScript)
@@ -35,4 +35,4 @@ interface GrupoMusical {
 
 ***Resultado por consola:*** 
 
-![Resultado por consola](lab_03/src/images_readme/resultado_readme.PNG)
+![Resultado por consola](/src/images_readme/resultado_readme.PNG)
