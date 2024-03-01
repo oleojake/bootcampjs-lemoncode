@@ -35,4 +35,4 @@ interface GrupoMusical {
 
 ***Resultado por consola:*** 
 
-![Resultado por consola](/src/images_readme/resultado_readme.PNG)
+![Resultado por consola](src/images_readme/resultado_readme.PNG)
