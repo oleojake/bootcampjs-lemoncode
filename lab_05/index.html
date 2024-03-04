@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="./src/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🃏 El 7.5 Solitario - by OleojakeDEV</title>
+  </head>
+  <body>
+    <div class="app">
+      <header><h1>🃏 Debes llegar a 7.5</h1></header>
+      <div class="game">
+        <div class="table">
+          <img id="card" src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg">
+          <button id="boton-proxima-carta">🤔 ¿Qué hubiera pasado?</button>
+        </div>
+        <div class="game-historial">
+            <img class="cartasHistorial" id="card1" src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg">
+            <img class="cartasHistorial" id="card5" src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg">
+            <img class="cartasHistorial" id="card2" src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg">
+            <img class="cartasHistorial" id="card6" src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg">
+            <img class="cartasHistorial" id="card3" src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg">
+            <img class="cartasHistorial" id="card7" src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg">
+            <img class="cartasHistorial" id="card4" src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg">
+            <img class="cartasHistorial" id="card8" src="https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg">
+          </div> 
+        </div>
+      <div id="game-controls">
+        <p id="points-info">ℹ️ Todas las cartas puntuan y las figuras 0.5 puntos</p>
+        <p id="points"></p>
+        <button id="boton-nueva-partida">Nueva Partida</button>
+        <button id="boton-plantarme">Plantarme</button>
+        <button id="boton-dame-carta">Dame Carta</button>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

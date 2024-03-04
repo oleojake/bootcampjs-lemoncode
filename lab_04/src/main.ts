@@ -47,7 +47,7 @@ const botonResetElement = document.getElementById("boton-turno-reset");
 botonResetElement?.addEventListener("click", () => handleButtonTurn(botonResetElement.id));
 
 // INPUT
-function inputTurn () : void{
+function inputTurn () : void {
     const turnoElement = document.getElementById("numero-turno");
     const inputElement = document.getElementById("input-turn");
     const inputValue = (inputElement as HTMLInputElement).value;
