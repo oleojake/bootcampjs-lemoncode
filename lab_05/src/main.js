@@ -184,7 +184,7 @@ function nuevaPartida () {
             botonHubieraPasado.style.display = "none";
             queHubieraPasadoPulsado = false;
             puntos = 0;
-            document.getElementById("points-info").innerHTML = "🛈 Todas las cartas puntuan y las figuras 0.5 puntos";
+            document.getElementById("points-info").innerHTML = "ℹ️ Todas las cartas puntúan y las figuras 0.5 puntos";
             muestraPuntuacion ();
             mostrarCarta (puntos);
             borrarHistorial ();
