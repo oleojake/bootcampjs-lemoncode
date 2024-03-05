@@ -14,29 +14,25 @@ Queremos implementar una pantalla en la que aparezca un display con el turno act
 
 Se añaden los Listeners para cada botón.
 ````JavaScript
-botonAnteriorElement?.addEventListener("click", () => handleButtonTurn(botonAnteriorElement.id));
+const botonAnteriorElement = document.getElementById("boton-turno-anterior");
+if (botonAnteriorElement!== null && botonAnteriorElement !== undefined && 
+    botonAnteriorElement instanceof HTMLButtonElement) {
+        botonAnteriorElement.addEventListener("click", () => handleButtonTurn(botonAnteriorElement.id));
+}
 ````
 En la función se identifica de dónde proviene el click para saber qué resultado reflejar
 ````JavaScript
 switch(botonPulsadoID){
     case "boton-turno-anterior":
-    if (turnoActual !== null && turnoActual !== undefined && turnoElement !== null && turnoElement !== undefined &&  turnoActual > 0){
-        newTurn = turnoActual - 1;
-        turnoElement.innerHTML = newTurn.toString().padStart(2,'0');
-    }
-    break;
-
-    case "boton-turno-siguiente":
-        if (turnoActual !== null && turnoActual !== undefined && turnoElement !== null && turnoElement !== undefined) {
-            newTurn = turnoActual + 1;
-            turnoElement.innerHTML = newTurn.toString().padStart(2,'0');
+        if (turnoActual > 0){
+            turnoElement.innerHTML = (turnoActual - 1).toString().padStart(2,'0');
         }
+    break;
+    case "boton-turno-siguiente":
+        turnoElement.innerHTML = (turnoActual + 1).toString().padStart(2,'0');
     break;
     case "boton-turno-reset":
-        if (turnoActual !== null && turnoActual !== undefined && turnoElement !== null && turnoElement !== undefined) {    
-            newTurn = 0;
-            turnoElement.innerHTML = newTurn.toString().padStart(2,'0');
-        }
+        turnoElement.innerHTML = "0".padStart(2,'0');
     break;
 }
 ````
@@ -47,8 +43,8 @@ Como challenge puedes añadir una caja de texto y un botón que permita cambiar 
 Además del input se ha añdido un cuadro de texto donde aparecen advertencias por ejemplo, en el caso de que se haya introducido un número menor que 0, o se haya dejado la caja en blanco:
 
 ````JavaScript
-if (errorMsg !== null && errorMsg !== undefined && inputValue == "") {
-    errorMsg.innerHTML = "Debes introducir algún valor";
+else if (parseInt(inputValue) < 0) {
+    mostrarWarningMessage("Debes introducir un número mayor que 0");
 }
 ````
 
@@ -57,5 +53,5 @@ Sea el número que sea, lo quiero mostrar siempre con dos digitos (es decir el 1
 
 Para ello se ha utilizado al función PadStart:
 ````JavaScript
-turnoElement.innerHTML = newTurn.toString().padStart(2,'0');
+turnoElement.innerHTML = (turnoActual + 1).toString().padStart(2,'0');
 ````

@@ -1,60 +1,87 @@
-// BOTONES
-function handleButtonTurn (botonPulsadoID) {
 
-    const turnoElement = document.getElementById("numero-turno");
-    const turnoActual = parseInt(turnoElement.innerHTML);
-    let newTurn;
+const turnoElement = document.getElementById("numero-turno");
 
-    switch(botonPulsadoID){
-        case "boton-turno-anterior":
-            if (turnoActual > 0){
-                newTurn = turnoActual - 1;
-                turnoElement.innerHTML = newTurn.toString().padStart(2,'0');
-            }
-        break;
-
-        case "boton-turno-siguiente":
-                newTurn = turnoActual + 1;
-                turnoElement.innerHTML = newTurn.toString().padStart(2,'0');
-        break;
-
-        case "boton-turno-reset":
-                newTurn = 0;
-                turnoElement.innerHTML = newTurn.toString().padStart(2,'0');
-        break;
+// CALCULAR TURNO ACTUAL
+function calcularTurnoActual () {
+    let turno = 0;
+    if (turnoElement !== null && turnoElement !== undefined) {
+        turno = parseInt(turnoElement.innerHTML);
     }
+    return turno;
+}
+
+// ACTUALIZAR TURNO
+function actualizarTurno (puntuacion) {
+    if (turnoElement !== null && turnoElement !== undefined) {
+        turnoElement.innerHTML = puntuacion.toString().padStart(2,'0');
+    }
+}
+
+// HANDLE BUTTON
+function handleButtonTurn (botonPulsadoID) {
+        const turnoActual = calcularTurnoActual();
+        switch(botonPulsadoID){
+            case "boton-turno-anterior":
+                if (turnoActual > 0){
+                    actualizarTurno(turnoActual - 1);
+                }
+            break;
+            case "boton-turno-siguiente":
+                actualizarTurno(turnoActual + 1);
+            break;
+            case "boton-turno-reset":
+                actualizarTurno(0);
+            break;
+        }
+}
+
+// MOSTRAR MENSAJE ERROR
+function mostrarWarningMessage (str) {
+    const errorMsg = document.getElementById("input-warning");
+    if (errorMsg !== null && errorMsg !== undefined) {
+        errorMsg.innerHTML = str;
+    }
+}
+
+// INPUT TURN
+function inputTurn (){
+    const inputElement = document.getElementById("input-turn");
+    const inputValue = inputElement.value;
+
+    if (inputValue === "") {
+        mostrarWarningMessage("Debes introducir algún valor");
+    }
+    else if (parseInt(inputValue) < 0) {
+        mostrarWarningMessage("Debes introducir un número mayor que 0");
+    }
+    else {
+        actualizarTurno(parseInt(inputValue));
+        mostrarWarningMessage("");
+    }
+    
+    inputElement.value = "";
 }
 
 const botonAnteriorElement = document.getElementById("boton-turno-anterior");
-botonAnteriorElement.addEventListener("click", () => handleButtonTurn(botonAnteriorElement.id));
+if (botonAnteriorElement!== null && botonAnteriorElement !== undefined && 
+    botonAnteriorElement instanceof HTMLButtonElement) {
+        botonAnteriorElement.addEventListener("click", () => handleButtonTurn(botonAnteriorElement.id));
+}
 
 const botonSiguienteElement = document.getElementById("boton-turno-siguiente");
-botonSiguienteElement.addEventListener("click", () => handleButtonTurn(botonSiguienteElement.id));
+if (botonSiguienteElement!== null && botonSiguienteElement !== undefined && 
+    botonSiguienteElement instanceof HTMLButtonElement) {
+        botonSiguienteElement.addEventListener("click", () => handleButtonTurn(botonSiguienteElement.id));
+}
 
 const botonResetElement = document.getElementById("boton-turno-reset");
-botonResetElement.addEventListener("click", () => handleButtonTurn(botonResetElement.id));
-
-// INPUT
-function inputTurn (){
-    const turnoElement = document.getElementById("numero-turno");
-    const inputElement = document.getElementById("input-turn");
-    const inputValue = inputElement.value;
-    const errorMsg = document.getElementById("input-warning");
-
-    if (inputValue == "") {
-        errorMsg.innerHTML = "Debes introducir algún valor";
-    }
-    else if (parseInt(inputValue) < 0) {
-        errorMsg.innerHTML = "Debes introducir un número mayor que 0";
-        inputElement.value = "";
-    }
-    else {
-
-        turnoElement.innerHTML = (parseInt(inputValue)).toString().padStart(2,'0');
-        inputElement.value = "";
-        errorMsg.innerHTML = "";
-    }
+if (botonResetElement!== null && botonResetElement !== undefined && 
+    botonResetElement instanceof HTMLButtonElement) {
+        botonResetElement.addEventListener("click", () => handleButtonTurn(botonResetElement.id));
 }
 
 const botonInputElement = document.getElementById("button-input-turn");
-botonInputElement.addEventListener("click", inputTurn);
+if (botonInputElement!== null && botonInputElement !== undefined && 
+    botonInputElement instanceof HTMLButtonElement) {
+        botonInputElement.addEventListener("click", inputTurn);
+}

@@ -115,6 +115,11 @@ button:active{
   box-shadow: 0 0 10px #213547;
 }
 
+.controles {
+  display: flex;
+  gap: 2%;
+}
+
 #numero-turno {
   font-size: 6rem;
   font-weight: bold;
