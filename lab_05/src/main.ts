@@ -1,25 +1,32 @@
+// VARIABLES GLOBALES
 let puntos = 0;
-let queHubieraPasadoPulsado = false;
+let queHubieraPasadoPulsado = false; // Botón para simulación
 let jugadas = [];
+
+const elementPointsInfo = document.getElementById("points-info");
+const elementPoints = document.getElementById("points");
 
 // MOSTRAR PUNTUACIÓN
 function muestraPuntuacion () : void {
-    if(queHubieraPasadoPulsado == false) {
-        if ( puntos > 7.5){
-            document.getElementById("points-info").innerHTML = `💀 ¡GAME OVER, te has pasado!`;
-            document.getElementById("points").innerHTML = "PUNTUACIÓN: " + puntos.toString();
-            gameOver();
+if (elementPointsInfo !== null && elementPointsInfo !== undefined &&
+    elementPoints !==null && elementPoints !== undefined){
+        if(queHubieraPasadoPulsado == false) {
+            if ( puntos > 7.5){
+                elementPointsInfo.innerHTML = `💀 ¡GAME OVER, te has pasado!`;
+                elementPoints.innerHTML = "PUNTUACIÓN: " + puntos.toString();
+                gameOver();
+            }
+            else {
+                elementPoints.innerHTML = "PUNTUACIÓN: " + puntos.toString();
+            }
         }
-        else {
-            document.getElementById("points").innerHTML = "PUNTUACIÓN: " + puntos.toString();
-        }
-    }
-    else {
-        if ( puntos > 7.5) {
-            document.getElementById("points-info").innerHTML = `💀 ¡Te hubieras pasado, con ${puntos} puntos!`;
-        }
-        else {
-            document.getElementById("points-info").innerHTML = `🍀 ¡Lástima, Hubieras llegado a ${puntos} puntos!`;
+        else { // Hace la simulación pero no cuenta como nueva jugada
+            if ( puntos > 7.5) {
+                elementPointsInfo.innerHTML = `💀 ¡Te hubieras pasado, con ${puntos} puntos!`;
+            }
+            else {
+                elementPointsInfo.innerHTML = `🍀 ¡Lástima, Hubieras llegado a ${puntos} puntos!`;
+            }
         }
     }
 }
@@ -27,14 +34,14 @@ document.addEventListener("DOMContentLoaded", muestraPuntuacion);
 
 // DAME CARTA
 function dameCarta() : void {
-    let cartaSeleccionada = Math.ceil(Math.random() * 10);
+    let cartaSeleccionada = Math.ceil(Math.random() * 10); // Entre 1 y 10
     if (cartaSeleccionada > 7) {
-        cartaSeleccionada = cartaSeleccionada +2;
+        cartaSeleccionada = cartaSeleccionada +2; // Si es 8, 9 o 10 le suma 2 => 10, 11 y 12
     }
     mostrarCarta(cartaSeleccionada);
 }
 const botonDameCarta = document.getElementById("boton-dame-carta");
-botonDameCarta.addEventListener("click", dameCarta);
+botonDameCarta?.addEventListener("click", dameCarta);
 
 // MOSTRAR CARTA
 function mostrarCarta (carta : number) : void {
@@ -142,25 +149,15 @@ function mostrarCarta (carta : number) : void {
     }
 }
 
-// ME PLANTO
-function mePlanto () : void {
-    if (puntos == 7.5) {
-        document.getElementById("points-info").innerHTML = "🥳 ¡Lo has clavado! ¡Enhorabuena!";
-    }
-    else if (puntos >= 6 && puntos <= 7) {
-        document.getElementById("points-info").innerHTML = "🤏 Casi casi...";
-    }
-    else if (puntos >= 5) {
-        document.getElementById("points-info").innerHTML = "💩 Te ha entrado el canguelo eh?";
-    }
-    else if (puntos <= 4) {
-        document.getElementById("points-info").innerHTML = "🥱 Has sido muy conservador";
-    }
-    botonHubieraPasado.style.display = "block";
-    gameOver();
+// HISTORIAL 
+function actualizaHistorial (src : string) : void {
+    const cartaHistorial = document.getElementById(`card${jugadas.length}`);
+    if(cartaHistorial !== null && cartaHistorial !== undefined &&
+        cartaHistorial instanceof HTMLImageElement){
+            cartaHistorial.src = src;
+            cartaHistorial.style.opacity = "1";
+        }
 }
-const botonPlantarme = document.getElementById("boton-plantarme");
-botonPlantarme.addEventListener("click", mePlanto);
 
 // GAME OVER
 function gameOver () {
@@ -177,44 +174,28 @@ function gameOver () {
 function nuevaPartida () {
     if (botonDameCarta !== null && botonDameCarta !== undefined && botonDameCarta instanceof HTMLButtonElement && 
         botonNuevaPartida !== null && botonNuevaPartida !== undefined && botonNuevaPartida instanceof HTMLButtonElement && 
-        botonPlantarme !== null && botonPlantarme !== undefined && botonPlantarme instanceof HTMLButtonElement) {
+        botonPlantarme !== null && botonPlantarme !== undefined && botonPlantarme instanceof HTMLButtonElement &&
+        botonHubieraPasado !== null && botonHubieraPasado !== undefined && botonHubieraPasado instanceof HTMLButtonElement &&
+        elementPointsInfo !== null && elementPointsInfo !== undefined) {
+            // Se restablece el juego
             botonDameCarta.disabled = false;
             botonPlantarme.style.display = "inline";
             botonNuevaPartida.style.display = "none";
             botonHubieraPasado.style.display = "none";
             queHubieraPasadoPulsado = false;
             puntos = 0;
-            document.getElementById("points-info").innerHTML = "ℹ️ Cartas del 1-7 y las figuras 0.5 puntos";
+            elementPointsInfo.innerHTML = "ℹ️ Cartas del 1-7 y las figuras 0.5 puntos";
             muestraPuntuacion ();
-            mostrarCarta (puntos);
+            mostrarCarta (puntos); // Como se pasa el 0 mostrarCarta muestra el reverso
             borrarHistorial ();
         }
 }
 const botonNuevaPartida = document.getElementById("boton-nueva-partida");
-botonNuevaPartida.addEventListener("click",nuevaPartida);
-
-// QUE HUBIERA PASADO
-function queHubieraPasado () {
-    botonHubieraPasado.style.display = "none";
-    queHubieraPasadoPulsado = true;
-    dameCarta();
-}
-const botonHubieraPasado = document.getElementById("boton-proxima-carta");
-botonHubieraPasado.addEventListener("click",queHubieraPasado);
-
-// HISTORIAL 
-function actualizaHistorial (src : string) : void {
-    const cartaHistorial = document.getElementById(`card${jugadas.length}`);
-    if(cartaHistorial !== null && cartaHistorial !== undefined &&
-        cartaHistorial instanceof HTMLImageElement){
-            cartaHistorial.src = src;
-            cartaHistorial.style.opacity = "1";
-        }
-}
+botonNuevaPartida?.addEventListener("click",nuevaPartida);
 
 // BORRAR HISTORIAL
 function borrarHistorial () : void {
-    jugadas = [];
+    jugadas = []; // Vacía el array de jugadas
     for (let i = 1; i <= 8; i++){
         let cartaHistorial = document.getElementById(`card${i}`);
         if(cartaHistorial !== null && cartaHistorial !== undefined &&
@@ -224,3 +205,45 @@ function borrarHistorial () : void {
         }
     }
 }
+
+// ME PLANTO
+function mePlanto () : void {
+    if (elementPointsInfo !== null && elementPointsInfo !== undefined &&
+        elementPoints !==null && elementPoints !== undefined) {
+        if (puntos === 7.5) {
+            elementPointsInfo.innerHTML = "🥳 ¡Lo has clavado! ¡Enhorabuena!";
+        }
+        else if (puntos >= 6 && puntos <= 7) {
+            elementPointsInfo.innerHTML = "🤏 Casi casi...";
+        }
+        else if (puntos >= 5) {
+            elementPointsInfo.innerHTML = "💩 Te ha entrado el canguelo eh?";
+        }
+        else if (puntos <= 4) {
+            elementPointsInfo.innerHTML = "🥱 Has sido muy conservador";
+        }
+    }
+    if (botonHubieraPasado!== null && botonHubieraPasado !== undefined) {
+        botonHubieraPasado.style.display = "block";
+        gameOver();
+    }
+
+}
+const botonPlantarme = document.getElementById("boton-plantarme");
+botonPlantarme?.addEventListener("click", mePlanto);
+
+// QUE HUBIERA PASADO
+function queHubieraPasado () {
+    if (botonHubieraPasado !== null && botonHubieraPasado !== undefined && botonHubieraPasado instanceof HTMLButtonElement) {
+        botonHubieraPasado.style.display = "none";
+        queHubieraPasadoPulsado = true;
+        // Hace la simulación pero como se ha marcado a true, cuando llegue a muestra puntuación no será una nuevajugada
+        dameCarta(); 
+    }
+}
+const botonHubieraPasado = document.getElementById("boton-proxima-carta");
+botonHubieraPasado?.addEventListener("click",queHubieraPasado);
+
+// CENTRAR UN DIV SIMPLE EN EL CENTRO
+// MEDIA QUERIES PARA MOBILE (width 100% o menú alargado)
+// COLORES BALATRO
