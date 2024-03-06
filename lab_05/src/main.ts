@@ -1,6 +1,14 @@
 // VARIABLES GLOBALES
+const enum Estado {
+	HA_GANADO = "HA_GANADO",
+	HA_PERDIDO = "HA_PERDIDO",
+	HA_PLANTADO = "HA_PLANTADO",
+    QUE_HUBIERA_PASADO = "QUE_HUBIERA_PASADO",
+    JUGANDO = "JUGANDO"
+}
+let estado = Estado.JUGANDO;
+
 let puntos = 0;
-let queHubieraPasadoPulsado = false; // Botón para simulación
 let jugadas = [];
 
 const elementPointsInfo = document.getElementById("points-info");
@@ -44,6 +52,13 @@ const dameSrcCarta = (carta : number) : string => {
     }
 }
 
+const mostrarCarta = (srcCarta : string) : void  => {
+    const imgCarta = document.getElementById("card");
+    if (imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
+        imgCarta.src = srcCarta;
+    }
+}
+
 const dameLosPuntosDeLaCarta = (numeroDeCarta : number) : number => {
     if (numeroDeCarta <= 7) {
         return numeroDeCarta;
@@ -52,15 +67,12 @@ const dameLosPuntosDeLaCarta = (numeroDeCarta : number) : number => {
     }
 }
 
-const sumaPuntos = (numeroDeCarta : number) => {
-    puntos = puntos + numeroDeCarta
+const sumaPuntos = (numeroDeCarta : number) : number => {
+    return puntos + numeroDeCarta
 }
 
-const mostrarCarta = (srcCarta : string) : void  => {
-    const imgCarta = document.getElementById("card");
-    if (imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-        imgCarta.src = srcCarta;
-    }
+const actualizarPuntos = (nuevosPuntos : number) => {
+    puntos = nuevosPuntos;
 }
 
 const registrarJugadas = (puntosAnotados : number) => {
@@ -71,7 +83,6 @@ const obtenerIdCartaHistorial = () : string => {
     return `card${jugadas.length}`;
 }
 
-// HISTORIAL 
 const muestraCartaEnHistorial = (numeroDeCarta : number) : void => {
     const id = obtenerIdCartaHistorial();
     const cartaAPintarHistorial = document.getElementById(id);
@@ -83,36 +94,7 @@ const muestraCartaEnHistorial = (numeroDeCarta : number) : void => {
     }
 }
 
-const revisarPartida = () => {
-    if (puntos > 7.5) {
-        muestraMensajeGameOver ();
-    }
-    else {
-        actualizaPuntuación ();
-    }
-}
-// La primera vez se llama cuando el DOM está listo
-document.addEventListener("DOMContentLoaded", revisarPartida);
-
-// BUCLE PRINCIPAL
-const dameCarta = () : void => {
-    const numeroAleatorio = dameNumeroAleatorio();
-    const numeroDeCarta = dameNumeroDeCarta (numeroAleatorio);
-    const srcCarta = dameSrcCarta (numeroDeCarta);
-    mostrarCarta(srcCarta);
-    const puntosDeLaCarta = dameLosPuntosDeLaCarta (numeroDeCarta);
-    sumaPuntos (puntosDeLaCarta);
-    registrarJugadas(puntosDeLaCarta);
-    muestraCartaEnHistorial(numeroDeCarta);
-    revisarPartida();
-}
-const botonDameCarta = document.getElementById("boton-dame-carta");
-if (botonDameCarta !== null && botonDameCarta !== undefined
-    && botonDameCarta instanceof HTMLButtonElement) {
-        botonDameCarta.addEventListener("click", dameCarta);
-}
-
-// Desactiva Botón Dame Carta
+// Desactiva Botón Dame Carta // UI
 const desactivaDameCarta = () => {
     if (botonDameCarta !== null && botonDameCarta !== undefined && botonDameCarta instanceof HTMLButtonElement && 
         botonNuevaPartida !== null && botonNuevaPartida !== undefined && botonNuevaPartida instanceof HTMLButtonElement && 
@@ -123,33 +105,97 @@ const desactivaDameCarta = () => {
     }
 }
 
-const muestraMensajeGameOver = () => {
-if (elementPointsInfo !== null && elementPointsInfo !== undefined &&
-    elementPoints !==null && elementPoints !== undefined) {
-        if (queHubieraPasadoPulsado == false) {
-            elementPointsInfo.innerHTML = `💀 ¡GAME OVER, te has pasado!`;
-            elementPoints.innerHTML = "PUNTUACIÓN: " + puntos.toString();
-            desactivaDameCarta();
-        }
-        else {
-            elementPointsInfo.innerHTML = `💀 ¡Te hubieras pasado, con ${puntos} puntos!`;
-        }
+const generarMensajePointsInfo = () : string => {
+    let mensaje = "";
+    switch (estado) {
+        case "HA_GANADO":
+            mensaje = "🥳 ¡Lo has clavado! ¡Enhorabuena!";
+        break;
+
+        case "HA_PLANTADO":
+            if (puntos <= 7 && puntos >= 6)
+                mensaje = "🤏 Casi casi...";
+            else if (puntos >= 5)
+                mensaje = "💩 Te ha entrado el canguelo eh?";
+            else if (puntos <= 4)
+                mensaje = "🥱 Has sido muy conservador";
+        break;
+
+        case "HA_PERDIDO":
+            mensaje = `💀 ¡GAME OVER, te has pasado!`;
+        break;
+
+        case "QUE_HUBIERA_PASADO":
+            if (puntos > 7.5)
+                mensaje = `💀 ¡Te hubieras pasado, con ${puntos} puntos!`;
+            else
+                mensaje = `🍀 ¡Lástima, Hubieras llegado a ${puntos} puntos!`;
+        break;
+
+        case "JUGANDO":
+            mensaje = "ℹ️ Cartas del 1-7 y las figuras 0.5 puntos"          
+        break;
     }
+    return mensaje;
 }
 
-const actualizaPuntuación = () => {
-if (elementPointsInfo !== null && elementPointsInfo !== undefined &&
-    elementPoints !==null && elementPoints !== undefined) {
-        if (queHubieraPasadoPulsado == false) {
-            elementPoints.innerHTML = "PUNTUACIÓN: " + puntos.toString();
+// UI
+const imprimeMensajePointsInfo = (mensaje : string) => {
+    if (elementPointsInfo !== null && elementPointsInfo !== undefined &&
+        elementPointsInfo instanceof HTMLElement) {
+            elementPointsInfo.innerHTML = mensaje;
         }
-        else {
-            elementPointsInfo.innerHTML = `🍀 ¡Lástima, Hubieras llegado a ${puntos} puntos!`;
-        }
-    }
-}               
+}
 
-const restablecerJuego = () => {
+const generarMensajePoints = () : string =>  {
+    return "PUNTUACIÓN: " + puntos.toString();
+}
+
+// UI
+const imprimeMensajePoints = (mensaje : string) => {
+    if (elementPoints !== null && elementPoints !== undefined &&
+        elementPoints instanceof HTMLElement) {
+            elementPoints.innerHTML = mensaje;
+        }
+}
+
+const actualizaPuntuacion = () => {
+    const mensajePoints = generarMensajePoints();
+    imprimeMensajePoints (mensajePoints);
+    const mensajePointsInfo = generarMensajePointsInfo ();
+    imprimeMensajePointsInfo(mensajePointsInfo);
+}
+
+const revisarPartida = () => {  
+    if (puntos > 7.5 && estado !== "QUE_HUBIERA_PASADO") {
+        estado = Estado.HA_PERDIDO;
+        desactivaDameCarta();
+    }
+    actualizaPuntuacion();
+}
+document.addEventListener("DOMContentLoaded", revisarPartida);
+
+// BUCLE PRINCIPAL
+const dameCarta = () : void => {
+    const numeroAleatorio = dameNumeroAleatorio(); 
+    const numeroDeCarta = dameNumeroDeCarta (numeroAleatorio);
+    const srcCarta = dameSrcCarta (numeroDeCarta);
+    mostrarCarta(srcCarta);
+    const puntosDeLaCarta = dameLosPuntosDeLaCarta (numeroDeCarta);
+    const puntosSumados = sumaPuntos (puntosDeLaCarta);
+    actualizarPuntos(puntosSumados);
+    registrarJugadas(puntosDeLaCarta);
+    muestraCartaEnHistorial(numeroDeCarta);
+    revisarPartida();
+}
+const botonDameCarta = document.getElementById("boton-dame-carta");
+if (botonDameCarta !== null && botonDameCarta !== undefined
+    && botonDameCarta instanceof HTMLButtonElement) {
+        botonDameCarta.addEventListener("click", dameCarta);
+}
+
+// UI
+const restablecerBotones = () => {
     if (botonDameCarta !== null && botonDameCarta !== undefined && botonDameCarta instanceof HTMLButtonElement && 
         botonNuevaPartida !== null && botonNuevaPartida !== undefined && botonNuevaPartida instanceof HTMLButtonElement && 
         botonPlantarme !== null && botonPlantarme !== undefined && botonPlantarme instanceof HTMLButtonElement &&
@@ -159,16 +205,19 @@ const restablecerJuego = () => {
             botonPlantarme.style.display = "inline";
             botonNuevaPartida.style.display = "none";
             botonHubieraPasado.style.display = "none";
-            queHubieraPasadoPulsado = false;
-            puntos = 0;
-            elementPointsInfo.innerHTML = "ℹ️ Cartas del 1-7 y las figuras 0.5 puntos";
         }
+}
+
+const restablecerVariables = () => {
+    estado = Estado.JUGANDO;
+    puntos = 0;
 }
 
 const vaciaJugadasAnteriores = () => {
     jugadas = [];
 }
 
+// UI
 const borraCartaHistorial = (idCarta : string) => {
 let cartaHistorial = document.getElementById(idCarta);
     if(cartaHistorial !== null && cartaHistorial !== undefined &&
@@ -181,19 +230,20 @@ let cartaHistorial = document.getElementById(idCarta);
 
 // BORRAR HISTORIAL
 const borrarHistorial = () : void => {
-vaciaJugadasAnteriores();
-for (let i = 1; i <= 8; i++){
-    borraCartaHistorial (`card${i}`);
-}
+    vaciaJugadasAnteriores();
+    for (let i = 1; i <= 8; i++){
+        borraCartaHistorial (`card${i}`);
+    }
 }
 
 // NUEVA PARTIDA
 const nuevaPartida = () => {
-    restablecerJuego();
+    restablecerBotones();
+    restablecerVariables();
     const srcCarta = dameSrcCarta(0); // El 0 pinta reverso
     mostrarCarta (srcCarta);
-    borrarHistorial ();
-    revisarPartida ();  
+    borrarHistorial();
+    actualizaPuntuacion ();  
 }
 const botonNuevaPartida = document.getElementById("boton-nueva-partida");
 if (botonNuevaPartida !== null && botonNuevaPartida !== undefined
@@ -201,53 +251,37 @@ if (botonNuevaPartida !== null && botonNuevaPartida !== undefined
         botonNuevaPartida.addEventListener("click",nuevaPartida);
 }
 
-
 const muestraBotonQueHubieraPasado = () => {
-    if (botonHubieraPasado!== null && botonHubieraPasado !== undefined) {
-        // Muestra el botón qué hubiera pasado y desactiva el resto de botones
+    if (botonHubieraPasado!== null && botonHubieraPasado !== undefined
+        && botonHubieraPasado instanceof HTMLButtonElement) {
         botonHubieraPasado.style.display = "block";
-        desactivaDameCarta();
     }
 }
-
-// ME PLANTO
-const mePlanto = () : void => {
-    if (elementPointsInfo !== null && elementPointsInfo !== undefined &&
-        elementPoints !==null && elementPoints !== undefined) {
-        if (puntos === 7.5) {
-            elementPointsInfo.innerHTML = "🥳 ¡Lo has clavado! ¡Enhorabuena!";
-        }
-        else if (puntos >= 6 && puntos <= 7) {
-            elementPointsInfo.innerHTML = "🤏 Casi casi...";
-        }
-        else if (puntos >= 5) {
-            elementPointsInfo.innerHTML = "💩 Te ha entrado el canguelo eh?";
-        }
-        else if (puntos <= 4) {
-            elementPointsInfo.innerHTML = "🥱 Has sido muy conservador";
-        }
-    }
-
-    muestraBotonQueHubieraPasado();
-
-}
-const botonPlantarme = document.getElementById("boton-plantarme");
-if (botonPlantarme !== null && botonPlantarme !== undefined
-    && botonPlantarme instanceof HTMLButtonElement) {
-        botonPlantarme.addEventListener("click", mePlanto);
-    }
 
 // QUE HUBIERA PASADO
 const queHubieraPasado = () => {
-    if (botonHubieraPasado !== null && botonHubieraPasado !== undefined && botonHubieraPasado instanceof HTMLButtonElement) {
-        // Hace la simulación pero mostrará otro mensaje y no actualizará puntos
-        botonHubieraPasado.style.display = "none";
-        queHubieraPasadoPulsado = true;
+    if (botonHubieraPasado !== null && botonHubieraPasado !== undefined 
+        && botonHubieraPasado instanceof HTMLButtonElement) {
+        estado = Estado.QUE_HUBIERA_PASADO;
         dameCarta(); 
     }
 }
 const botonHubieraPasado = document.getElementById("boton-proxima-carta");
 if (botonHubieraPasado !== null && botonHubieraPasado !== undefined
     && botonHubieraPasado instanceof HTMLButtonElement) {
-        botonHubieraPasado.addEventListener("click",queHubieraPasado);
+        botonHubieraPasado.addEventListener("click", queHubieraPasado);
     }
+
+const mePlanto = () : void => {
+    estado = Estado.HA_PLANTADO;
+    const mensajePointsInfo = generarMensajePointsInfo();
+    imprimeMensajePointsInfo(mensajePointsInfo);
+    muestraBotonQueHubieraPasado();
+    desactivaDameCarta();
+}
+
+const botonPlantarme = document.getElementById("boton-plantarme");
+if (botonPlantarme !== null && botonPlantarme !== undefined
+    && botonPlantarme instanceof HTMLButtonElement) {
+        botonPlantarme.addEventListener("click", mePlanto);
+}

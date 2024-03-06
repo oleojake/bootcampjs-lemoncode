@@ -1,169 +1,96 @@
+// VARIABLES GLOBALES
+const estado = {
+    status: "JUGANDO"
+}
+
 let puntos = 0;
-let queHubieraPasadoPulsado = false;
 let jugadas = [];
 
-// MOSTRAR PUNTUACIÓN
-function muestraPuntuacion () {
-    if(queHubieraPasadoPulsado == false) {
-        if ( puntos > 7.5){
-            document.getElementById("points-info").innerHTML = `💀 ¡GAME OVER, te has pasado!`;
-            document.getElementById("points").innerHTML = "PUNTUACIÓN: " + puntos.toString();
-            gameOver();
-        }
-        else {
-            document.getElementById("points").innerHTML = "PUNTUACIÓN: " + puntos.toString();
-        }
-    }
-    else {
-        if ( puntos > 7.5) {
-            document.getElementById("points-info").innerHTML = `💀 ¡Te hubieras pasado, con ${puntos} puntos!`;
-        }
-        else {
-            document.getElementById("points-info").innerHTML = `🍀 ¡Lástima, Hubieras llegado a ${puntos} puntos!`;
-        }
-    }
-}
-document.addEventListener("DOMContentLoaded", muestraPuntuacion);
+const elementPointsInfo = document.getElementById("points-info");
+const elementPoints = document.getElementById("points");
 
-// DAME CARTA
-function dameCarta() {
-    let cartaSeleccionada = Math.ceil(Math.random() * 10);
-    if (cartaSeleccionada > 7) {
-        cartaSeleccionada = cartaSeleccionada +2;
-    }
-    mostrarCarta(cartaSeleccionada);
+const dameNumeroAleatorio = () => {
+    return Math.ceil(Math.random() * 10);
 }
-const botonDameCarta = document.getElementById("boton-dame-carta");
-botonDameCarta.addEventListener("click", dameCarta);
 
-// MOSTRAR CARTA
-function mostrarCarta (carta)  {
-    let imgCarta = document.getElementById("card");
+const dameNumeroDeCarta = (numeroAleatorio) => {
+    if (numeroAleatorio > 7) {
+        return numeroAleatorio +2;
+    }
+    return numeroAleatorio;
+}
+
+const dameSrcCarta = (carta) => {
     switch (carta) {
-        case 0:
-            if (imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-                imgCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg";
-                puntos = puntos + carta;
-                jugadas.push(carta);
-                actualizaHistorial(imgCarta.src);
-                muestraPuntuacion();
-            }
-            break;
         case 1:
-            if (imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-                imgCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/1_as-copas.jpg";
-                puntos = puntos + carta;
-                jugadas.push(carta);
-                actualizaHistorial(imgCarta.src);
-                muestraPuntuacion();
-            }
-            break;
+            return "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/1_as-copas.jpg";
         case 2:
-            if(imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-                imgCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/2_dos-copas.jpg";
-                puntos = puntos + carta;
-                jugadas.push(carta);
-                actualizaHistorial(imgCarta.src);
-                muestraPuntuacion();
-            }
-            break;
+            return "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/2_dos-copas.jpg";
         case 3:
-            if(imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-                imgCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/3_tres-copas.jpg";
-                puntos = puntos + carta;
-                jugadas.push(carta);
-                actualizaHistorial(imgCarta.src);
-                muestraPuntuacion();
-            }
-            break;
+            return "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/3_tres-copas.jpg";
         case 4:
-            if(imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-                imgCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/4_cuatro-copas.jpg";
-                puntos = puntos + carta;
-                jugadas.push(carta);
-                actualizaHistorial(imgCarta.src);
-                muestraPuntuacion();
-            }
-            break;
+            return "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/4_cuatro-copas.jpg";
         case 5:
-            if(imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-                imgCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/5_cinco-copas.jpg";
-                puntos = puntos + carta;
-                jugadas.push(carta);
-                actualizaHistorial(imgCarta.src);
-                muestraPuntuacion();
-            }
-            break;
+            return "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/5_cinco-copas.jpg";
         case 6:
-            if(imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-                imgCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/6_seis-copas.jpg";
-                puntos = puntos + carta;
-                jugadas.push(carta);
-                actualizaHistorial(imgCarta.src);
-                muestraPuntuacion();
-            }
-            break;
+            return "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/6_seis-copas.jpg";
         case 7:
-            if(imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-                imgCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/7_siete-copas.jpg";
-                puntos = puntos + carta;
-                jugadas.push(carta);
-                actualizaHistorial(imgCarta.src);
-                muestraPuntuacion();
-            }
-            break;
+            return "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/7_siete-copas.jpg";
         case 10:
-            if(imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-                imgCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/10_sota-copas.jpg";
-                puntos = puntos + 0.5;
-                jugadas.push(carta);
-                actualizaHistorial(imgCarta.src);
-                muestraPuntuacion();
-            }
-            break;
+            return "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/10_sota-copas.jpg";
         case 11:
-            if(imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-                imgCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/11_caballo-copas.jpg";
-                puntos = puntos + 0.5;
-                jugadas.push(carta);
-                actualizaHistorial(imgCarta.src);
-                muestraPuntuacion();
-            }
-            break;
+            return "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/11_caballo-copas.jpg";
         case 12:
-            if(imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-                imgCarta.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/12_rey-copas.jpg";
-                puntos = puntos + 0.5;
-                jugadas.push(carta);
-                actualizaHistorial(imgCarta.src);
-                muestraPuntuacion();
-            }
-            break;           
+            return "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/copas/12_rey-copas.jpg";
+        default:
+            return "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg";
     }
 }
 
-// ME PLANTO
-function mePlanto () {
-    if (puntos == 7.5) {
-        document.getElementById("points-info").innerHTML = "🥳 ¡Lo has clavado! ¡Enhorabuena!";
+const mostrarCarta = (srcCarta)  => {
+    const imgCarta = document.getElementById("card");
+    if (imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
+        imgCarta.src = srcCarta;
     }
-    else if (puntos >= 6 && puntos <= 7) {
-        document.getElementById("points-info").innerHTML = "🤏 Casi casi...";
-    }
-    else if (puntos >= 5) {
-        document.getElementById("points-info").innerHTML = "💩 Te ha entrado el canguelo eh?";
-    }
-    else if (puntos <= 4) {
-        document.getElementById("points-info").innerHTML = "🥱 Has sido muy conservador";
-    }
-    botonHubieraPasado.style.display = "block";
-    gameOver();
 }
-const botonPlantarme = document.getElementById("boton-plantarme");
-botonPlantarme.addEventListener("click", mePlanto);
 
-// GAME OVER
-function gameOver () {
+const dameLosPuntosDeLaCarta = (numeroDeCarta) => {
+    if (numeroDeCarta <= 7) {
+        return numeroDeCarta;
+    } else {
+        return 0.5;
+    }
+}
+
+const sumaPuntos = (numeroDeCarta) => {
+    return puntos + numeroDeCarta
+}
+
+const actualizarPuntos = (nuevosPuntos) => {
+    puntos = nuevosPuntos;
+}
+
+const registrarJugadas = (puntosAnotados) => {
+    jugadas.push (puntosAnotados);
+}
+
+const obtenerIdCartaHistorial = () => {
+    return `card${jugadas.length}`;
+}
+
+const muestraCartaEnHistorial = (numeroDeCarta) => {
+    const id = obtenerIdCartaHistorial();
+    const cartaAPintarHistorial = document.getElementById(id);
+    if(cartaAPintarHistorial !== null && cartaAPintarHistorial !== undefined &&
+        cartaAPintarHistorial instanceof HTMLImageElement){
+            const srcCarta = dameSrcCarta (numeroDeCarta);
+            cartaAPintarHistorial.src = srcCarta;
+            cartaAPintarHistorial.style.opacity = "1";
+    }
+}
+
+// Desactiva Botón Dame Carta // UI
+const desactivaDameCarta = () => {
     if (botonDameCarta !== null && botonDameCarta !== undefined && botonDameCarta instanceof HTMLButtonElement && 
         botonNuevaPartida !== null && botonNuevaPartida !== undefined && botonNuevaPartida instanceof HTMLButtonElement && 
         botonPlantarme !== null && botonPlantarme !== undefined && botonPlantarme instanceof HTMLButtonElement) {
@@ -173,54 +100,183 @@ function gameOver () {
     }
 }
 
-// NUEVA PARTIDA
-function nuevaPartida () {
+const generarMensajePointsInfo = () => {
+    let mensaje = "";
+    switch (estado.status) {
+        case "HA_GANADO":
+            mensaje = "🥳 ¡Lo has clavado! ¡Enhorabuena!";
+        break;
+
+        case "HA_PLANTADO":
+            if (puntos <= 7 && puntos >= 6)
+                mensaje = "🤏 Casi casi...";
+            else if (puntos >= 5)
+                mensaje = "💩 Te ha entrado el canguelo eh?";
+            else if (puntos <= 4)
+                mensaje = "🥱 Has sido muy conservador";
+        break;
+
+        case "HA_PERDIDO":
+            mensaje = `💀 ¡GAME OVER, te has pasado!`;
+        break;
+
+        case "QUE_HUBIERA_PASADO":
+            if (puntos > 7.5)
+                mensaje = `💀 ¡Te hubieras pasado, con ${puntos} puntos!`;
+            else
+                mensaje = `🍀 ¡Lástima, Hubieras llegado a ${puntos} puntos!`;
+        break;
+
+        case "JUGANDO":
+            mensaje = "ℹ️ Cartas del 1-7 y las figuras 0.5 puntos"          
+        break;
+    }
+    return mensaje;
+}
+
+// UI
+const imprimeMensajePointsInfo = (mensaje) => {
+    if (elementPointsInfo !== null && elementPointsInfo !== undefined &&
+        elementPointsInfo instanceof HTMLElement) {
+            elementPointsInfo.innerHTML = mensaje;
+        }
+}
+
+const generarMensajePoints = () =>  {
+    return "PUNTUACIÓN: " + puntos.toString();
+}
+
+// UI
+const imprimeMensajePoints = (mensaje) => {
+    if (elementPoints !== null && elementPoints !== undefined &&
+        elementPoints instanceof HTMLElement) {
+            elementPoints.innerHTML = mensaje;
+        }
+}
+
+const actualizaPuntuacion = () => {
+    const mensajePoints = generarMensajePoints();
+    imprimeMensajePoints (mensajePoints);
+    const mensajePointsInfo = generarMensajePointsInfo ();
+    imprimeMensajePointsInfo(mensajePointsInfo);
+}
+
+const revisarPartida = () => {  
+    if (puntos > 7.5 && estado !== "QUE_HUBIERA_PASADO") {
+        estado.status = "HA_PERDIDO";
+        desactivaDameCarta();
+    }
+    actualizaPuntuacion();
+}
+document.addEventListener("DOMContentLoaded", revisarPartida);
+
+// BUCLE PRINCIPAL
+const dameCarta = () => {
+    const numeroAleatorio = dameNumeroAleatorio(); 
+    const numeroDeCarta = dameNumeroDeCarta (numeroAleatorio);
+    const srcCarta = dameSrcCarta (numeroDeCarta);
+    mostrarCarta(srcCarta);
+    const puntosDeLaCarta = dameLosPuntosDeLaCarta (numeroDeCarta);
+    const puntosSumados = sumaPuntos (puntosDeLaCarta);
+    actualizarPuntos(puntosSumados);
+    registrarJugadas(puntosDeLaCarta);
+    muestraCartaEnHistorial(numeroDeCarta);
+    revisarPartida();
+}
+const botonDameCarta = document.getElementById("boton-dame-carta");
+if (botonDameCarta !== null && botonDameCarta !== undefined
+    && botonDameCarta instanceof HTMLButtonElement) {
+        botonDameCarta.addEventListener("click", dameCarta);
+}
+
+// UI
+const restablecerBotones = () => {
     if (botonDameCarta !== null && botonDameCarta !== undefined && botonDameCarta instanceof HTMLButtonElement && 
         botonNuevaPartida !== null && botonNuevaPartida !== undefined && botonNuevaPartida instanceof HTMLButtonElement && 
-        botonPlantarme !== null && botonPlantarme !== undefined && botonPlantarme instanceof HTMLButtonElement) {
+        botonPlantarme !== null && botonPlantarme !== undefined && botonPlantarme instanceof HTMLButtonElement &&
+        botonHubieraPasado !== null && botonHubieraPasado !== undefined && botonHubieraPasado instanceof HTMLButtonElement &&
+        elementPointsInfo !== null && elementPointsInfo !== undefined) {
             botonDameCarta.disabled = false;
             botonPlantarme.style.display = "inline";
             botonNuevaPartida.style.display = "none";
             botonHubieraPasado.style.display = "none";
-            queHubieraPasadoPulsado = false;
-            puntos = 0;
-            document.getElementById("points-info").innerHTML = "ℹ️ Cartas del 1-7 y las figuras 0.5 puntos";
-            muestraPuntuacion ();
-            mostrarCarta (puntos);
-            borrarHistorial ();
         }
 }
-const botonNuevaPartida = document.getElementById("boton-nueva-partida");
-botonNuevaPartida.addEventListener("click",nuevaPartida);
 
-// QUE HUBIERA PASADO
-function queHubieraPasado () {
-    botonHubieraPasado.style.display = "none";
-    queHubieraPasadoPulsado = true;
-    dameCarta();
+const restablecerVariables = () => {
+    estado.status = "JUGANDO";
+    puntos = 0;
 }
-const botonHubieraPasado = document.getElementById("boton-proxima-carta");
-botonHubieraPasado.addEventListener("click",queHubieraPasado);
 
-// HISTORIAL 
-function actualizaHistorial (src)  {
-    const cartaHistorial = document.getElementById(`card${jugadas.length}`);
+const vaciaJugadasAnteriores = () => {
+    jugadas = [];
+}
+
+// UI
+const borraCartaHistorial = (idCarta) => {
+let cartaHistorial = document.getElementById(idCarta);
     if(cartaHistorial !== null && cartaHistorial !== undefined &&
-        cartaHistorial instanceof HTMLImageElement){
-            cartaHistorial.src = src;
-            cartaHistorial.style.opacity = "1";
-        }
+    cartaHistorial instanceof HTMLImageElement){
+        cartaHistorial.style.opacity = "0";
+        const srcCarta = dameSrcCarta(0); // El 0 pinta reverso
+        cartaHistorial.src = srcCarta;
+    }
 }
 
 // BORRAR HISTORIAL
-function borrarHistorial () {
-    jugadas = [];
+const borrarHistorial = () => {
+    vaciaJugadasAnteriores();
     for (let i = 1; i <= 8; i++){
-        let cartaHistorial = document.getElementById(`card${i}`);
-        if(cartaHistorial !== null && cartaHistorial !== undefined &&
-        cartaHistorial instanceof HTMLImageElement){
-            cartaHistorial.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/cartas/back.jpg";
-            cartaHistorial.style.opacity = "0";
-        }
+        borraCartaHistorial (`card${i}`);
     }
+}
+
+// NUEVA PARTIDA
+const nuevaPartida = () => {
+    restablecerBotones();
+    restablecerVariables();
+    const srcCarta = dameSrcCarta(0); // El 0 pinta reverso
+    mostrarCarta (srcCarta);
+    borrarHistorial();
+    actualizaPuntuacion ();  
+}
+const botonNuevaPartida = document.getElementById("boton-nueva-partida");
+if (botonNuevaPartida !== null && botonNuevaPartida !== undefined
+    && botonNuevaPartida instanceof HTMLButtonElement) {
+        botonNuevaPartida.addEventListener("click",nuevaPartida);
+}
+
+const muestraBotonQueHubieraPasado = () => {
+    if (botonHubieraPasado!== null && botonHubieraPasado !== undefined
+        && botonHubieraPasado instanceof HTMLButtonElement) {
+        botonHubieraPasado.style.display = "block";
+    }
+}
+
+// QUE HUBIERA PASADO
+const queHubieraPasado = () => {
+    if (botonHubieraPasado !== null && botonHubieraPasado !== undefined 
+        && botonHubieraPasado instanceof HTMLButtonElement) {
+        estado.status = "QUE_HUBIERA_PASADO";
+        dameCarta(); 
+    }
+}
+const botonHubieraPasado = document.getElementById("boton-proxima-carta");
+if (botonHubieraPasado !== null && botonHubieraPasado !== undefined
+    && botonHubieraPasado instanceof HTMLButtonElement) {
+        botonHubieraPasado.addEventListener("click", queHubieraPasado);
+    }
+
+const mePlanto = () => {
+    estado.status = "HA_PLANTADO";
+    const mensajePointsInfo = generarMensajePointsInfo();
+    imprimeMensajePointsInfo(mensajePointsInfo);
+    muestraBotonQueHubieraPasado();
+    desactivaDameCarta();
+}
+
+const botonPlantarme = document.getElementById("boton-plantarme");
+if (botonPlantarme !== null && botonPlantarme !== undefined
+    && botonPlantarme instanceof HTMLButtonElement) {
+        botonPlantarme.addEventListener("click", mePlanto);
 }
