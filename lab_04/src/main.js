@@ -1,8 +1,7 @@
 
-const turnoElement = document.getElementById("numero-turno");
-
-// CALCULAR TURNO ACTUAL
+// CALCULAR TURNO ACTUAL // UI
 function calcularTurnoActual () {
+    const turnoElement = document.getElementById("numero-turno");
     let turno = 0;
     if (turnoElement !== null && turnoElement !== undefined) {
         turno = parseInt(turnoElement.innerHTML);
@@ -10,15 +9,16 @@ function calcularTurnoActual () {
     return turno;
 }
 
-// ACTUALIZAR TURNO
+// ACTUALIZAR TURNO // UI
 function actualizarTurno (puntuacion) {
+    const turnoElement = document.getElementById("numero-turno");
     if (turnoElement !== null && turnoElement !== undefined) {
         turnoElement.innerHTML = puntuacion.toString().padStart(2,'0');
     }
 }
 
-// HANDLE BUTTON
-function handleButtonTurn (botonPulsadoID) {
+// HANDLE BUTTON // MOTOR
+function handleButtonTurn (botonPulsadoID){
         const turnoActual = calcularTurnoActual();
         switch(botonPulsadoID){
             case "boton-turno-anterior":
@@ -35,7 +35,7 @@ function handleButtonTurn (botonPulsadoID) {
         }
 }
 
-// MOSTRAR MENSAJE ERROR
+// MOSTRAR MENSAJE ERROR // UI
 function mostrarWarningMessage (str) {
     const errorMsg = document.getElementById("input-warning");
     if (errorMsg !== null && errorMsg !== undefined) {
@@ -43,10 +43,21 @@ function mostrarWarningMessage (str) {
     }
 }
 
-// INPUT TURN
-function inputTurn (){
+// UI
+const obtenerValueInput = () => {
     const inputElement = document.getElementById("input-turn");
-    const inputValue = inputElement.value;
+    return inputElement.value;
+}
+
+// UI
+const actualizarValueInput = (value) => {
+    const inputElement = document.getElementById("input-turn");
+    inputElement.value = value;
+}
+
+// INPUT TURN // MOTOR
+function inputTurn () {
+    const inputValue = obtenerValueInput();
 
     if (inputValue === "") {
         mostrarWarningMessage("Debes introducir algún valor");
@@ -58,8 +69,7 @@ function inputTurn (){
         actualizarTurno(parseInt(inputValue));
         mostrarWarningMessage("");
     }
-    
-    inputElement.value = "";
+    actualizarValueInput("");
 }
 
 const botonAnteriorElement = document.getElementById("boton-turno-anterior");

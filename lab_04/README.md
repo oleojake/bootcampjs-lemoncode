@@ -25,14 +25,14 @@ En la función se identifica de dónde proviene el click para saber qué resulta
 switch(botonPulsadoID){
     case "boton-turno-anterior":
         if (turnoActual > 0){
-            turnoElement.innerHTML = (turnoActual - 1).toString().padStart(2,'0');
+            actualizarTurno(turnoActual - 1);
         }
     break;
     case "boton-turno-siguiente":
-        turnoElement.innerHTML = (turnoActual + 1).toString().padStart(2,'0');
+        actualizarTurno(turnoActual + 1);
     break;
     case "boton-turno-reset":
-        turnoElement.innerHTML = "0".padStart(2,'0');
+        actualizarTurno(0);
     break;
 }
 ````
@@ -53,5 +53,5 @@ Sea el número que sea, lo quiero mostrar siempre con dos digitos (es decir el 1
 
 Para ello se ha utilizado al función PadStart:
 ````JavaScript
-turnoElement.innerHTML = (turnoActual + 1).toString().padStart(2,'0');
+turnoElement.innerHTML = puntuacion.toString().padStart(2,'0');
 ````

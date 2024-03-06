@@ -1,7 +1,7 @@
-const turnoElement = document.getElementById("numero-turno");
 
-// CALCULAR TURNO ACTUAL
+// CALCULAR TURNO ACTUAL // UI
 function calcularTurnoActual () : number {
+    const turnoElement = document.getElementById("numero-turno");
     let turno = 0;
     if (turnoElement !== null && turnoElement !== undefined) {
         turno = parseInt(turnoElement.innerHTML);
@@ -9,14 +9,15 @@ function calcularTurnoActual () : number {
     return turno;
 }
 
-// ACTUALIZAR TURNO
+// ACTUALIZAR TURNO // UI
 function actualizarTurno (puntuacion : number) : void {
+    const turnoElement = document.getElementById("numero-turno");
     if (turnoElement !== null && turnoElement !== undefined) {
         turnoElement.innerHTML = puntuacion.toString().padStart(2,'0');
     }
 }
 
-// HANDLE BUTTON
+// HANDLE BUTTON // MOTOR
 function handleButtonTurn (botonPulsadoID : string) : void {
         const turnoActual = calcularTurnoActual();
         switch(botonPulsadoID){
@@ -34,7 +35,7 @@ function handleButtonTurn (botonPulsadoID : string) : void {
         }
 }
 
-// MOSTRAR MENSAJE ERROR
+// MOSTRAR MENSAJE ERROR // UI
 function mostrarWarningMessage (str : string) : void {
     const errorMsg = document.getElementById("input-warning");
     if (errorMsg !== null && errorMsg !== undefined) {
@@ -42,10 +43,22 @@ function mostrarWarningMessage (str : string) : void {
     }
 }
 
-// INPUT TURN
-function inputTurn () : void {
+// UI
+const obtenerValueInput = () : string => {
     const inputElement = document.getElementById("input-turn");
     const inputValue = (inputElement as HTMLInputElement).value;
+    return inputValue;
+}
+
+// UI
+const actualizarValueInput = (value : string) => {
+    const inputElement = document.getElementById("input-turn");
+    (inputElement as HTMLInputElement).value = value;
+}
+
+// INPUT TURN // MOTOR
+function inputTurn () : void {
+    const inputValue = obtenerValueInput();
 
     if (inputValue === "") {
         mostrarWarningMessage("Debes introducir algún valor");
@@ -57,8 +70,7 @@ function inputTurn () : void {
         actualizarTurno(parseInt(inputValue));
         mostrarWarningMessage("");
     }
-    
-    (inputElement as HTMLInputElement).value = "";
+    actualizarValueInput("");
 }
 
 const botonAnteriorElement = document.getElementById("boton-turno-anterior");
