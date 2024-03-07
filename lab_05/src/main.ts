@@ -142,7 +142,7 @@ const generarMensajePointsInfo = () : string => {
 // UI
 const imprimeMensajePointsInfo = (mensaje : string) => {
     if (elementPointsInfo !== null && elementPointsInfo !== undefined &&
-        elementPointsInfo instanceof HTMLElement) {
+        elementPointsInfo instanceof HTMLParagraphElement) {
             elementPointsInfo.innerHTML = mensaje;
         }
 }
@@ -154,7 +154,7 @@ const generarMensajePoints = () : string =>  {
 // UI
 const imprimeMensajePoints = (mensaje : string) => {
     if (elementPoints !== null && elementPoints !== undefined &&
-        elementPoints instanceof HTMLElement) {
+        elementPoints instanceof HTMLParagraphElement) {
             elementPoints.innerHTML = mensaje;
         }
 }
@@ -167,9 +167,15 @@ const actualizaPuntuacion = () => {
 }
 
 const revisarPartida = () => {  
-    if (puntos > 7.5 && estado !== "QUE_HUBIERA_PASADO") {
-        estado = Estado.HA_PERDIDO;
-        desactivaDameCarta();
+    if(estado !== "QUE_HUBIERA_PASADO"){
+        if (puntos > 7.5) {
+            estado = Estado.HA_PERDIDO;
+            desactivaDameCarta();
+            }
+        if (puntos === 7.5){
+            estado = Estado.HA_GANADO;
+            desactivaDameCarta();
+        }
     }
     actualizaPuntuacion();
 }
@@ -199,8 +205,7 @@ const restablecerBotones = () => {
     if (botonDameCarta !== null && botonDameCarta !== undefined && botonDameCarta instanceof HTMLButtonElement && 
         botonNuevaPartida !== null && botonNuevaPartida !== undefined && botonNuevaPartida instanceof HTMLButtonElement && 
         botonPlantarme !== null && botonPlantarme !== undefined && botonPlantarme instanceof HTMLButtonElement &&
-        botonHubieraPasado !== null && botonHubieraPasado !== undefined && botonHubieraPasado instanceof HTMLButtonElement &&
-        elementPointsInfo !== null && elementPointsInfo !== undefined) {
+        botonHubieraPasado !== null && botonHubieraPasado !== undefined && botonHubieraPasado instanceof HTMLButtonElement) {
             botonDameCarta.disabled = false;
             botonPlantarme.style.display = "inline";
             botonNuevaPartida.style.display = "none";

@@ -162,9 +162,15 @@ const actualizaPuntuacion = () => {
 }
 
 const revisarPartida = () => {  
-    if (puntos > 7.5 && estado !== "QUE_HUBIERA_PASADO") {
-        estado.status = "HA_PERDIDO";
-        desactivaDameCarta();
+    if(estado !== "QUE_HUBIERA_PASADO") {
+        if (puntos > 7.5) {
+            estado.status = "HA_PERDIDO";
+            desactivaDameCarta();
+        }
+        if (puntos === 7.5) {
+            estado.status = "HA_GANADO";
+            desactivaDameCarta();
+        }
     }
     actualizaPuntuacion();
 }
