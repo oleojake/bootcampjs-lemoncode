@@ -160,14 +160,14 @@ nav a{
         align-items: center;
     }
 
-    nav span {
+    nav div {
         text-decoration: none;
         color: var(--primary);
         font-size: 1rem;
         display: none;
     }
 
-    nav span:nth-child(1) {
+    nav div:nth-child(1) {
         display: block;
     }
 }
