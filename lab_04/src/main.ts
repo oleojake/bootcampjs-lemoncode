@@ -3,7 +3,8 @@
 function calcularTurnoActual () : number {
     const turnoElement = document.getElementById("numero-turno");
     let turno = 0;
-    if (turnoElement !== null && turnoElement !== undefined) {
+    if (turnoElement !== null && turnoElement !== undefined
+        && turnoElement instanceof HTMLHeadingElement) {
         turno = parseInt(turnoElement.innerHTML);
     }
     return turno;
@@ -12,7 +13,8 @@ function calcularTurnoActual () : number {
 // ACTUALIZAR TURNO // UI
 function actualizarTurno (puntuacion : number) : void {
     const turnoElement = document.getElementById("numero-turno");
-    if (turnoElement !== null && turnoElement !== undefined) {
+    if (turnoElement !== null && turnoElement !== undefined
+        && turnoElement instanceof HTMLHeadingElement) {
         turnoElement.innerHTML = puntuacion.toString().padStart(2,'0');
     }
 }
@@ -38,7 +40,8 @@ function handleButtonTurn (botonPulsadoID : string) : void {
 // MOSTRAR MENSAJE ERROR // UI
 function mostrarWarningMessage (str : string) : void {
     const errorMsg = document.getElementById("input-warning");
-    if (errorMsg !== null && errorMsg !== undefined) {
+    if (errorMsg !== null && errorMsg !== undefined
+        && errorMsg instanceof HTMLParagraphElement) {
         errorMsg.innerHTML = str;
     }
 }
