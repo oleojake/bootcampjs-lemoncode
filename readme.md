@@ -5,9 +5,11 @@
 #### ✔️ Laboratorio Módulo 3 - Variables => ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_03))					
 #### ✔️ Laboratorio Módulo 4 - Funciones > ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_04)) ([🚀live](https://next-turn.netlify.app/)) 									
 #### ✔️ Laboratorio Módulo 5 - Condicionales => ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_05))([🚀live](https://solitario75.netlify.app)) 			
+
+
 #### Laboratorio Módulo 6 - Imports		
 #### Laboratorio Módulo 7 - Testing		
-#### Laboratorio Módulo 8.1 - Bucles		
+#### ✔️ Laboratorio Módulo 8.1 - Bucles => ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_08_01))		
 #### Laboratorio Módulo 8.2 - Array Methods		
 #### Laboratorio Módulo 8.3 - Aplicación Memoria		
 #### Laboratorio Módulo 9 - 9.1 Ticket de compra		
