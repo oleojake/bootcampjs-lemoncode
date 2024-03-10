@@ -6,9 +6,9 @@ const enum Estado {
     QUE_HUBIERA_PASADO = "QUE_HUBIERA_PASADO",
     JUGANDO = "JUGANDO"
 }
-let estado = Estado.JUGANDO;
+export let estado = Estado.JUGANDO;
 
-let puntos = 0;
+export let puntos = 0;
 let jugadas = [];
 
 const elementPointsInfo = document.getElementById("points-info");
