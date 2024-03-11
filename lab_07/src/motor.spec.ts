@@ -1,8 +1,28 @@
-import { vi } from "vitest"
+import {dameNumeroDeCarta} from './motor';
 
-import {Estado, partida} from './modelo';
 
-import {revisarPartida} from './motor';
+describe("dameNumeroDeCarta", () => {
+    it("Debería devolver 10 si el resultado que le llega es 8", () => {
+        // Arrange
+        const numeroRandom = 8;
+
+        // Act
+        const puntuacion = dameNumeroDeCarta(numeroRandom);
+
+        // Assert
+        expect(puntuacion).toBe(10);
+    });
+});
+
+
+
+/*
+const dameNumeroDeCarta = (numeroAleatorio : number) : number => {
+    if (numeroAleatorio > 7) {
+        return numeroAleatorio +2;
+    }
+    return numeroAleatorio;
+}
 
 
 describe("revisarPartida", () => {
@@ -18,7 +38,7 @@ describe("revisarPartida", () => {
     });
 });
 
-/*
+
 export const revisarPartida = () => {  
     if(partida.estado !== "QUE_HUBIERA_PASADO"){
         if (partida.puntos > 7.5) {

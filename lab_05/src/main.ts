@@ -18,7 +18,7 @@ const dameNumeroAleatorio = () => {
     return Math.ceil(Math.random() * 10);
 }
 
-const dameNumeroDeCarta = (numeroAleatorio : number) : number => {
+export const dameNumeroDeCarta = (numeroAleatorio : number) : number => {
     if (numeroAleatorio > 7) {
         return numeroAleatorio +2;
     }
