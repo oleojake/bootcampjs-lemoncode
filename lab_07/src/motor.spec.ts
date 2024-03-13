@@ -103,7 +103,7 @@ describe("dameLosPuntosDeLaCarta", () => {
 
     it("Debería sumar 0.5 puntos si le llega un número mayor a 7", () => {
         // Arrange
-        const numeroDeCarta = 8;
+        const numeroDeCarta = 10;
 
         // Act
         const puntosDeLaCarta = dameLosPuntosDeLaCarta(numeroDeCarta);

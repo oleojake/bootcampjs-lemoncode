@@ -11,5 +11,8 @@ const vitestConfig: VitestUserConfigInterface = {
 
 export default defineConfig({
   plugins: [checker({ typescript: true })],
-  test: vitestConfig.test,
+  test: {
+    ...vitestConfig.test,
+    environment: "jsdom",
+  },
 });

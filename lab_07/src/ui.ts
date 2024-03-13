@@ -63,23 +63,19 @@ const desactivaDameCarta = () : void => {
 }
 
 const imprimeMensajePointsInfo = (mensaje : string) : void => {
-    if (typeof document !== 'undefined') {
         const elementPointsInfo = document.getElementById("points-info");
         if (elementPointsInfo !== null && elementPointsInfo !== undefined &&
             elementPointsInfo instanceof HTMLParagraphElement) {
                 elementPointsInfo.innerHTML = mensaje;
             }
-    }
 }
 
 const imprimeMensajePoints = (mensaje : string) : void => {
-    if (typeof document !== 'undefined') {
         const elementPoints = document.getElementById("points");
         if (elementPoints !== null && elementPoints !== undefined &&
             elementPoints instanceof HTMLParagraphElement) {
                 elementPoints.innerHTML = mensaje;
         }
-    }
 }
 
 const actualizaPuntuacion = () : void => {
@@ -164,34 +160,27 @@ const queHubieraPasado = () : void => {
 
 // LAS HE MOVIDO AQUÍ DESDE SHELL PARA EVITAR DEPENDENCIA CIRCULAR
 
-    let botonNuevaPartida : HTMLElement | null;
-    let botonPlantarme : HTMLElement | null;
-    let botonHubieraPasado : HTMLElement | null;
-    let botonDameCarta : HTMLElement | null;
-
-if (typeof document !== 'undefined') {
-    botonNuevaPartida = document.getElementById("boton-nueva-partida");
-    console.log(typeof botonNuevaPartida);
+    const botonNuevaPartida = document.getElementById("boton-nueva-partida");
         if (botonNuevaPartida !== null && botonNuevaPartida !== undefined
             && botonNuevaPartida instanceof HTMLButtonElement) {
                 botonNuevaPartida.addEventListener("click", nuevaPartida);
     }
 
-    botonPlantarme = document.getElementById("boton-plantarme");
+    const botonPlantarme = document.getElementById("boton-plantarme");
         if (botonPlantarme !== null && botonPlantarme !== undefined
             && botonPlantarme instanceof HTMLButtonElement) {
             botonPlantarme.addEventListener("click", mePlanto);
     }
 
-    botonHubieraPasado = document.getElementById("boton-proxima-carta");
+    const botonHubieraPasado = document.getElementById("boton-proxima-carta");
         if (botonHubieraPasado !== null && botonHubieraPasado !== undefined
             && botonHubieraPasado instanceof HTMLButtonElement) {
             botonHubieraPasado.addEventListener("click", queHubieraPasado);
     }
 
-    botonDameCarta = document.getElementById("boton-dame-carta");
+    const botonDameCarta = document.getElementById("boton-dame-carta");
     if (botonDameCarta !== null && botonDameCarta !== undefined
         && botonDameCarta instanceof HTMLButtonElement) {
             botonDameCarta.addEventListener("click", dameCarta);
     }
-}
+
