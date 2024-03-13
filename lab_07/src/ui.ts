@@ -1,35 +1,58 @@
 import {
+    Estado,
     partida,
 } from './modelo';
 
 import {
     dameSrcCarta,
+    generarMensajePointsInfo,
+    generarMensajePoints,
+    dameNumeroAleatorio,
+    dameNumeroDeCarta,
+    dameLosPuntosDeLaCarta,
+    sumaPuntos,
+    actualizarPuntos,
+    registrarJugadas,
+    vaciaJugadasAnteriores,
+    restablecerVariables,
+    obtenerIdCartaHistorial
 } from './motor';
 
-import {
-    botonPlantarme,
-    botonNuevaPartida,
-    botonHubieraPasado,
-    botonDameCarta
-} from './shell';
 
-export const imprimeMensajePointsInfo = (mensaje : string) => {
-    const elementPointsInfo = document.getElementById("points-info");
-    if (elementPointsInfo !== null && elementPointsInfo !== undefined &&
-        elementPointsInfo instanceof HTMLParagraphElement) {
-            elementPointsInfo.innerHTML = mensaje;
-        }
+const mostrarCarta = (srcCarta : string) : void  => {
+    const imgCarta = document.getElementById("card");
+    if (imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
+        imgCarta.src = srcCarta;
+    }
 }
 
-export const imprimeMensajePoints = (mensaje : string) => {
-    const elementPoints = document.getElementById("points");
-    if (elementPoints !== null && elementPoints !== undefined &&
-        elementPoints instanceof HTMLParagraphElement) {
-            elementPoints.innerHTML = mensaje;
-        }
+
+const muestraCartaEnHistorial = (numeroDeCarta : number) : void => {
+    const id = obtenerIdCartaHistorial();
+    const cartaAPintarHistorial = document.getElementById(id);
+    if(cartaAPintarHistorial !== null && cartaAPintarHistorial !== undefined &&
+        cartaAPintarHistorial instanceof HTMLImageElement){
+            const srcCarta = dameSrcCarta (numeroDeCarta);
+            cartaAPintarHistorial.src = srcCarta;
+            cartaAPintarHistorial.style.opacity = "1";
+    }
 }
 
-export const desactivaDameCarta = () => {
+// BUCLE PRINCIPAL
+const dameCarta = () : void => {
+    const numeroAleatorio = dameNumeroAleatorio(); 
+    const numeroDeCarta = dameNumeroDeCarta (numeroAleatorio);
+    const srcCarta = dameSrcCarta (numeroDeCarta);
+    mostrarCarta(srcCarta);
+    const puntosDeLaCarta = dameLosPuntosDeLaCarta (numeroDeCarta);
+    const puntosSumados = sumaPuntos (puntosDeLaCarta);
+    actualizarPuntos(puntosSumados);
+    registrarJugadas(puntosDeLaCarta);
+    muestraCartaEnHistorial(numeroDeCarta);
+    revisarPartida();
+}
+
+const desactivaDameCarta = () : void => {
     if (botonDameCarta !== null && botonDameCarta !== undefined && botonDameCarta instanceof HTMLButtonElement && 
         botonNuevaPartida !== null && botonNuevaPartida !== undefined && botonNuevaPartida instanceof HTMLButtonElement && 
         botonPlantarme !== null && botonPlantarme !== undefined && botonPlantarme instanceof HTMLButtonElement) {
@@ -39,14 +62,48 @@ export const desactivaDameCarta = () => {
     }
 }
 
-export const mostrarCarta = (srcCarta : string) : void  => {
-    const imgCarta = document.getElementById("card");
-    if (imgCarta !== null && imgCarta !== undefined && imgCarta instanceof HTMLImageElement) {
-        imgCarta.src = srcCarta;
+const imprimeMensajePointsInfo = (mensaje : string) : void => {
+    if (typeof document !== 'undefined') {
+        const elementPointsInfo = document.getElementById("points-info");
+        if (elementPointsInfo !== null && elementPointsInfo !== undefined &&
+            elementPointsInfo instanceof HTMLParagraphElement) {
+                elementPointsInfo.innerHTML = mensaje;
+            }
     }
 }
 
-export const restablecerBotones = () => {
+const imprimeMensajePoints = (mensaje : string) : void => {
+    if (typeof document !== 'undefined') {
+        const elementPoints = document.getElementById("points");
+        if (elementPoints !== null && elementPoints !== undefined &&
+            elementPoints instanceof HTMLParagraphElement) {
+                elementPoints.innerHTML = mensaje;
+        }
+    }
+}
+
+const actualizaPuntuacion = () : void => {
+    const mensajePoints = generarMensajePoints();
+    imprimeMensajePoints (mensajePoints);
+    const mensajePointsInfo = generarMensajePointsInfo ();
+    imprimeMensajePointsInfo(mensajePointsInfo);
+}
+
+export const revisarPartida = () : void => {  
+    if(partida.estado !== "QUE_HUBIERA_PASADO"){
+        if (partida.puntos > 7.5) {
+            partida.estado = Estado.HA_PERDIDO;
+            desactivaDameCarta();
+            }
+        if (partida.puntos === 7.5){
+            partida.estado = Estado.HA_GANADO;
+            desactivaDameCarta();
+        }
+    }
+    actualizaPuntuacion();
+}
+
+const restablecerBotones = () : void => {
     if (botonDameCarta !== null && botonDameCarta !== undefined && botonDameCarta instanceof HTMLButtonElement && 
         botonNuevaPartida !== null && botonNuevaPartida !== undefined && botonNuevaPartida instanceof HTMLButtonElement && 
         botonPlantarme !== null && botonPlantarme !== undefined && botonPlantarme instanceof HTMLButtonElement &&
@@ -58,7 +115,7 @@ export const restablecerBotones = () => {
         }
 }
 
-export const borraCartaHistorial = (idCarta : string) => {
+const borraCartaHistorial = (idCarta : string) : void => {
     let cartaHistorial = document.getElementById(idCarta);
         if(cartaHistorial !== null && cartaHistorial !== undefined &&
         cartaHistorial instanceof HTMLImageElement){
@@ -68,30 +125,73 @@ export const borraCartaHistorial = (idCarta : string) => {
         }
     }
 
-export const muestraBotonQueHubieraPasado = () => {
+const borrarHistorial = () : void => {
+    vaciaJugadasAnteriores();
+    for (let i = 1; i <= 8; i++){
+        borraCartaHistorial (`card${i}`);
+    }
+}
+
+export const nuevaPartida = () : void => {
+    restablecerBotones();
+    const srcCarta = dameSrcCarta(0); // El 0 pinta reverso
+    mostrarCarta (srcCarta);
+    borrarHistorial();
+    restablecerVariables();
+    actualizaPuntuacion();
+}
+
+const muestraBotonQueHubieraPasado = () : void => {
     if (botonHubieraPasado!== null && botonHubieraPasado !== undefined
         && botonHubieraPasado instanceof HTMLButtonElement) {
         botonHubieraPasado.style.display = "block";
     }
 }
 
-const obtenerIdCartaHistorial = () : string => {
-    return `card${partida.jugadas.length}`;
+const mePlanto = () : void => {
+    partida.estado = Estado.HA_PLANTADO;
+    const mensajePointsInfo = generarMensajePointsInfo();
+    imprimeMensajePointsInfo(mensajePointsInfo);
+    muestraBotonQueHubieraPasado();
+    desactivaDameCarta();
 }
 
-export const muestraCartaEnHistorial = (numeroDeCarta : number) : void => {
-    const id = obtenerIdCartaHistorial();
-    const cartaAPintarHistorial = document.getElementById(id);
-    if(cartaAPintarHistorial !== null && cartaAPintarHistorial !== undefined &&
-        cartaAPintarHistorial instanceof HTMLImageElement){
-            const srcCarta = dameSrcCarta (numeroDeCarta);
-            cartaAPintarHistorial.src = srcCarta;
-            cartaAPintarHistorial.style.opacity = "1";
+
+const queHubieraPasado = () : void => {
+    partida.estado = Estado.QUE_HUBIERA_PASADO;
+    dameCarta(); 
+}
+
+// LAS HE MOVIDO AQUÍ DESDE SHELL PARA EVITAR DEPENDENCIA CIRCULAR
+
+    let botonNuevaPartida : HTMLElement | null;
+    let botonPlantarme : HTMLElement | null;
+    let botonHubieraPasado : HTMLElement | null;
+    let botonDameCarta : HTMLElement | null;
+
+if (typeof document !== 'undefined') {
+    botonNuevaPartida = document.getElementById("boton-nueva-partida");
+    console.log(typeof botonNuevaPartida);
+        if (botonNuevaPartida !== null && botonNuevaPartida !== undefined
+            && botonNuevaPartida instanceof HTMLButtonElement) {
+                botonNuevaPartida.addEventListener("click", nuevaPartida);
     }
-}
 
-export const nuevaPartidaUI = () => {
-    restablecerBotones();
-    const srcCarta = dameSrcCarta(0); // El 0 pinta reverso
-    mostrarCarta (srcCarta);
+    botonPlantarme = document.getElementById("boton-plantarme");
+        if (botonPlantarme !== null && botonPlantarme !== undefined
+            && botonPlantarme instanceof HTMLButtonElement) {
+            botonPlantarme.addEventListener("click", mePlanto);
+    }
+
+    botonHubieraPasado = document.getElementById("boton-proxima-carta");
+        if (botonHubieraPasado !== null && botonHubieraPasado !== undefined
+            && botonHubieraPasado instanceof HTMLButtonElement) {
+            botonHubieraPasado.addEventListener("click", queHubieraPasado);
+    }
+
+    botonDameCarta = document.getElementById("boton-dame-carta");
+    if (botonDameCarta !== null && botonDameCarta !== undefined
+        && botonDameCarta instanceof HTMLButtonElement) {
+            botonDameCarta.addEventListener("click", dameCarta);
+    }
 }

@@ -3,17 +3,7 @@ import {
     partida,
 } from './modelo';
 
-import {
-    borraCartaHistorial,
-    imprimeMensajePointsInfo,
-    imprimeMensajePoints,
-    desactivaDameCarta,
-    mostrarCarta,
-    muestraBotonQueHubieraPasado,
-    muestraCartaEnHistorial
-} from './ui';
-
-const dameNumeroAleatorio = () => {
+export const dameNumeroAleatorio = () : number => {
     return Math.ceil(Math.random() * 10);
 }
 
@@ -51,7 +41,7 @@ export const dameSrcCarta = (carta : number) : string => {
     }
 }
 
-const dameLosPuntosDeLaCarta = (numeroDeCarta : number) : number => {
+export const dameLosPuntosDeLaCarta = (numeroDeCarta : number) : number => {
     if (numeroDeCarta <= 7) {
         return numeroDeCarta;
     } else {
@@ -59,19 +49,19 @@ const dameLosPuntosDeLaCarta = (numeroDeCarta : number) : number => {
     }
 }
 
-const sumaPuntos = (numeroDeCarta : number) : number => {
+export const sumaPuntos = (numeroDeCarta : number) : number => {
     return partida.puntos + numeroDeCarta
 }
 
-const actualizarPuntos = (nuevosPuntos : number) => {
+export const actualizarPuntos = (nuevosPuntos : number) => {
     partida.puntos = nuevosPuntos;
 }
 
-const registrarJugadas = (puntosAnotados : number) => {
+export const registrarJugadas = (puntosAnotados : number) => {
     partida.jugadas.push (puntosAnotados);
 }
 
-const generarMensajePointsInfo = () : string => {
+export const generarMensajePointsInfo = () : string => {
     let mensaje = "";
     switch (partida.estado) {
         case "HA_GANADO":
@@ -105,80 +95,19 @@ const generarMensajePointsInfo = () : string => {
     return mensaje;
 }
 
-const generarMensajePoints = () : string =>  {
+export const generarMensajePoints = () : string =>  {
     return "PUNTUACIÓN: " + partida.puntos.toString();
 }
 
-const actualizaPuntuacion = () => {
-    const mensajePoints = generarMensajePoints();
-    imprimeMensajePoints (mensajePoints);
-    const mensajePointsInfo = generarMensajePointsInfo ();
-    imprimeMensajePointsInfo(mensajePointsInfo);
-}
-
-export const revisarPartida = () => {  
-    if(partida.estado !== "QUE_HUBIERA_PASADO"){
-        if (partida.puntos > 7.5) {
-            partida.estado = Estado.HA_PERDIDO;
-            desactivaDameCarta();
-            }
-        if (partida.puntos === 7.5){
-            partida.estado = Estado.HA_GANADO;
-            desactivaDameCarta();
-        }
-    }
-    actualizaPuntuacion();
-}
-
-// BUCLE PRINCIPAL
-export const dameCarta = () : void => {
-    const numeroAleatorio = dameNumeroAleatorio(); 
-    const numeroDeCarta = dameNumeroDeCarta (numeroAleatorio);
-    const srcCarta = dameSrcCarta (numeroDeCarta);
-    mostrarCarta(srcCarta);
-    const puntosDeLaCarta = dameLosPuntosDeLaCarta (numeroDeCarta);
-    const puntosSumados = sumaPuntos (puntosDeLaCarta);
-    actualizarPuntos(puntosSumados);
-    registrarJugadas(puntosDeLaCarta);
-    muestraCartaEnHistorial(numeroDeCarta);
-    revisarPartida();
-}
-
-const restablecerVariables = () => {
+export const restablecerVariables = () : void => {
     partida.estado = Estado.JUGANDO;
     partida.puntos = 0;
 }
 
-const vaciaJugadasAnteriores = () => {
+export const vaciaJugadasAnteriores = () : void => {
     partida.jugadas = [];
 }
 
-// BORRAR HISTORIAL
-const borrarHistorial = () : void => {
-    vaciaJugadasAnteriores();
-    for (let i = 1; i <= 8; i++){
-        borraCartaHistorial (`card${i}`);
-    }
-}
-
-// NUEVA PARTIDA MOTOR
-export const nuevaPartidaMotor = () => {
-    restablecerVariables();
-    borrarHistorial();
-    actualizaPuntuacion();  
-}
-
-// QUE HUBIERA PASADO
-export const queHubieraPasado = () => {
-    partida.estado = Estado.QUE_HUBIERA_PASADO;
-    dameCarta(); 
-    
-}
-
-export const mePlanto = () : void => {
-    partida.estado = Estado.HA_PLANTADO;
-    const mensajePointsInfo = generarMensajePointsInfo();
-    imprimeMensajePointsInfo(mensajePointsInfo);
-    muestraBotonQueHubieraPasado();
-    desactivaDameCarta();
+export const obtenerIdCartaHistorial = () : string => {
+    return `card${partida.jugadas.length}`;
 }

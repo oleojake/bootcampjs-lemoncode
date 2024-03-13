@@ -1,237 +1,67 @@
-type Especialidad = "Medico de familia" | "Pediatra" | "Cardiólogo";
+import {tablero} from './modelo'
+import {handleFlipCard, iniciaPartida} from './ui'
 
-interface Pacientes {
-    id: number;
-    nombre: string;
-    apellidos: string;
-    sexo: string;
-    temperatura: number;
-    frecuenciaCardiaca: number;
-    especialidad: Especialidad;
-    edad: number;
+const Container0 = document.getElementById("container-0");
+if (Container0 !== null && Container0 !==undefined  && Container0 instanceof HTMLDivElement) {
+    Container0.addEventListener("click", () => handleFlipCard(Container0, tablero));
 }
 
-const pacientes: Pacientes[] = [
-    {
-        id: 1,
-        nombre: "John",
-        apellidos: "Doe",
-        sexo: "Male",
-        temperatura: 36.8,
-        frecuenciaCardiaca: 80,
-        especialidad: "Medico de familia",
-        edad: 44,
-    },
-    {
-        id: 2,
-        nombre: "Jane",
-        apellidos: "Doe",
-        sexo: "Female",
-        temperatura: 36.8,
-        frecuenciaCardiaca: 70,
-        especialidad: "Medico de familia",
-        edad: 43,
-    },
-    {
-        id: 3,
-        nombre: "Junior",
-        apellidos: "Doe",
-        sexo: "Male",
-        temperatura: 36.8,
-        frecuenciaCardiaca: 90,
-        especialidad: "Pediatra",
-        edad: 8,
-    },
-    {
-        id: 4,
-        nombre: "Mary",
-        apellidos: "Wien",
-        sexo: "Female",
-        temperatura: 36.8,
-        frecuenciaCardiaca: 120,
-        especialidad: "Medico de familia",
-        edad: 20,
-    },
-    {
-        id: 5,
-        nombre: "Scarlett",
-        apellidos: "Somez",
-        sexo: "Female",
-        temperatura: 36.8,
-        frecuenciaCardiaca: 110,
-        especialidad: "Cardiólogo",
-        edad: 30,
-    },
-    {
-        id: 6,
-        nombre: "Brian",
-        apellidos: "Kid",
-        sexo: "Male",
-        temperatura: 39.8,
-        frecuenciaCardiaca: 80,
-        especialidad: "Pediatra",
-        edad: 11,
-    },
-];
-
-// a) Queremos extraer la lista de paciente que están asignados a la especialidad de Pediatría
-const obtenPacientesAsignadosAPediatria = (pacientes: Pacientes[]): Pacientes[] => {
-    const pacientesPediatria : Pacientes[] = pacientes.filter(
-        (paciente : Pacientes) : boolean => paciente.especialidad === "Pediatra"
-    );
-    return pacientesPediatria;
-};
-const pacientesPediatria : Pacientes[] = obtenPacientesAsignadosAPediatria(pacientes);
-console.log(pacientesPediatria);
-
-
-// b) Queremos extraer la lista de pacientes asignados a Pediatría y que tengan una edad menor de 10 años.
-// Como usamos la lista anterior ya no comprobamos si es de Pediatría
-const obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios = (pacientes: Pacientes[]): Pacientes[] => {
-    const pacientesPediatria : Pacientes[] = pacientes.filter(
-        (paciente : Pacientes) : boolean => paciente.edad < 10 
-    );
-    return pacientesPediatria;
-};
-const pacientesPediatriaMenorDiezAnios : Pacientes[] = obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios(pacientesPediatria); 
-console.log(pacientesPediatriaMenorDiezAnios);
-
-
-// c) Queremos activar el protocolo de urgencia si cualquier de los pacientes tiene un ritmo cardíaco
-// superior a 100 pulsaciones por minuto y una temperatura corporal superior a 39 grados.
-const activarProtocoloUrgencia = (pacientes: Pacientes[]) : boolean => {
-    const hayPacientesEnUrgencia : boolean = pacientes.some(
-        (paciente : Pacientes) : boolean => paciente.temperatura > 39 && paciente.frecuenciaCardiaca > 100
-    );
-    return hayPacientesEnUrgencia
-};
-console.log(activarProtocoloUrgencia(pacientes));
-
-
-
-// d) El pediatra no puede atender hoy a los pacientes, queremos reasignar
-// los pacientes asignados a la especialidad de pediatría a la de medico de familia.
-const reasignaPacientesAMedicoFamilia = (pacientes: Pacientes[]): Pacientes[] => {
-    const pacientesReasignados : Pacientes[] = pacientes.map(
-        (paciente : Pacientes) : Pacientes => {
-            return {
-                ...paciente,
-                especialidad: "Medico de familia"
-            }
-        }
-    );
-    return pacientesReasignados;
-};
-const pacientesReasignadosMedicoFamilia = reasignaPacientesAMedicoFamilia(pacientes);
-console.log(pacientesReasignadosMedicoFamilia)
-
-
-
-// e) Queremos saber si podemos mandar al Pediatra a casa (si no tiene pacientes asignados)
-// comprobar si en la lista hay algún paciente asignado a pediatría
-const HayPacientesDePediatria = (pacientes: Pacientes[]) : boolean => {
-    const pacientesNoPediatria : boolean = pacientes.every(
-        (paciente : Pacientes) => paciente.especialidad !== "Pediatra"
-    );
-    return pacientesNoPediatria;
-};
-// Si lo hacemos con la lista anterior donde hemos asignado a Médico de Familia, devuelve true.
-console.log(HayPacientesDePediatria(pacientesReasignadosMedicoFamilia));
-
-
-// (OPCIONAL) Queremos calcular el número total de pacientes que están asignados
-// a la especialidad de Medico de familia, y lo que están asignados a Pediatría y a cardiología
-
-interface NumeroPacientesPorEspecialidad {
-    medicoDeFamilia: number;
-    pediatria: number;
-    cardiologia: number;
+const Container1 = document.getElementById("container-1");
+if (Container1 !== null && Container1 !==undefined && Container1 instanceof HTMLDivElement) {
+    Container1.addEventListener("click", () => handleFlipCard(Container1, tablero));
 }
 
-// CON FOREACH EN LUGAR DE FOR
-const cuentaPacientesPorEspecialidadForEach = (pacientes: Pacientes[]): NumeroPacientesPorEspecialidad => {
-    const listaPorEspecialidad : NumeroPacientesPorEspecialidad =
-    {medicoDeFamilia: 0, pediatria: 0, cardiologia: 0};
+const Container2 = document.getElementById("container-2");
+if (Container2 !== null && Container2 !==undefined && Container2 instanceof HTMLDivElement) {
+    Container2.addEventListener("click", () => handleFlipCard(Container2, tablero));
+}
 
-    pacientes.forEach(
-        (paciente : Pacientes) => {
-            switch(paciente.especialidad){
-                case "Cardiólogo":
-                    listaPorEspecialidad.cardiologia += 1;
-                    break;
-                case "Medico de familia":
-                    listaPorEspecialidad.medicoDeFamilia += 1;
-                    break;
-                case "Pediatra":
-                    listaPorEspecialidad.pediatria += 1;
-                    break;
-            }
-        }
-    );
-    return listaPorEspecialidad;
-};
-let listaPorEspecialidad = cuentaPacientesPorEspecialidadForEach(pacientes);
-console.log(listaPorEspecialidad);
+const Container3 = document.getElementById("container-3");
+if (Container3 !== null && Container3 !==undefined && Container3 instanceof HTMLDivElement) {
+    Container3.addEventListener("click", () => handleFlipCard(Container3, tablero));
+}
 
-// CON FILTER
-const cuentaPacientesPorEspecialidadFilter = (pacientes: Pacientes[]): NumeroPacientesPorEspecialidad => {
-    
-    const pacientesMedicoFamilia : Pacientes[] = pacientes.filter (
-        (paciente : Pacientes) => paciente.especialidad === "Medico de familia"
-    );
-    const pacientesPediatria : Pacientes[] = pacientes.filter (
-        (paciente : Pacientes) => paciente.especialidad === "Pediatra"
-    );
-    const pacientesCardiologia : Pacientes[] = pacientes.filter (
-        (paciente : Pacientes) => paciente.especialidad === "Cardiólogo"
-    );
-        
-    const listaPorEspecialidad : NumeroPacientesPorEspecialidad =
-    {medicoDeFamilia: pacientesMedicoFamilia.length, pediatria: pacientesPediatria.length, cardiologia: pacientesCardiologia.length};   
+const Container4 = document.getElementById("container-4");
+if (Container4 !== null && Container4 !==undefined && Container4 instanceof HTMLDivElement) {
+    Container4.addEventListener("click", () => handleFlipCard(Container4, tablero));
+}
 
-    return listaPorEspecialidad;
-};
-listaPorEspecialidad = cuentaPacientesPorEspecialidadFilter(pacientes);
-console.log(listaPorEspecialidad);
+const Container5 = document.getElementById("container-5");
+if (Container5 !== null && Container5 !==undefined && Container5 instanceof HTMLDivElement) {
+    Container5.addEventListener("click", () => handleFlipCard(Container5, tablero));
+}
 
+const Container6 = document.getElementById("container-6");
+if (Container6 !== null && Container6 !==undefined && Container6 instanceof HTMLDivElement) {
+    Container6.addEventListener("click", () => handleFlipCard(Container6, tablero));
+}
 
-// CON REDUCE evitamos el uso de length y nuevos arrays
-const cuentaPacientesPorEspecialidadReduce = (pacientes: Pacientes[]): NumeroPacientesPorEspecialidad => {
+const Container7 = document.getElementById("container-7");
+if (Container7 !== null && Container7 !==undefined && Container7 instanceof HTMLDivElement) {
+    Container7.addEventListener("click", () => handleFlipCard(Container7, tablero));
+}
 
-    const listaPorEspecialidad : NumeroPacientesPorEspecialidad =
-    {medicoDeFamilia: 0, pediatria: 0, cardiologia: 0}; 
-    
-    listaPorEspecialidad.medicoDeFamilia =  pacientes.reduce (
-        (acumulado: number, paciente : Pacientes) : number => {
-            if(paciente.especialidad === "Medico de familia"){
-                acumulado ++;
-            }
-            return acumulado;
-        },
-        0
-    );
+const Container8 = document.getElementById("container-8");
+if (Container8 !== null && Container8 !==undefined && Container8 instanceof HTMLDivElement) {
+    Container8.addEventListener("click", () => handleFlipCard(Container8, tablero));
+}
 
-    listaPorEspecialidad.pediatria =  pacientes.reduce (
-        (acumulado: number, paciente : Pacientes) : number => {
-            if(paciente.especialidad === "Pediatra"){
-                acumulado ++;
-            }
-            return acumulado;
-        },
-        0
-    );
+const Container9 = document.getElementById("container-9");
+if (Container9 !== null && Container9 !==undefined && Container9 instanceof HTMLDivElement) {
+    Container9.addEventListener("click", () => handleFlipCard(Container9, tablero));
+}
 
-    listaPorEspecialidad.cardiologia =  pacientes.reduce (
-        (acumulado: number, paciente : Pacientes) : number => {
-            if(paciente.especialidad === "Cardiólogo"){
-                acumulado ++;
-            }
-            return acumulado;
-        },
-        0
-    );
+const Container10 = document.getElementById("container-10");
+if (Container10 !== null && Container10 !==undefined && Container10 instanceof HTMLDivElement) {
+    Container10.addEventListener("click", () => handleFlipCard(Container10, tablero));
+}
 
-    return listaPorEspecialidad;
-};
-listaPorEspecialidad = cuentaPacientesPorEspecialidadReduce(pacientes);
-console.log(listaPorEspecialidad);
+const Container11 = document.getElementById("container-11");
+if (Container11 !== null && Container11 !==undefined && Container11 instanceof HTMLDivElement) {
+    Container11.addEventListener("click", () => handleFlipCard(Container11, tablero));
+}
+
+const botonEmpezarPartida = document.getElementById("boton-empezar-partida");
+if (botonEmpezarPartida!== null && botonEmpezarPartida!== undefined && botonEmpezarPartida instanceof HTMLButtonElement) {
+    botonEmpezarPartida.addEventListener("click", () => iniciaPartida(tablero));
+}

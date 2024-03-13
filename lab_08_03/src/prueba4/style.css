@@ -1,0 +1,25 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    text-align: center;
+}
+
+.card-container {
+    cursor: pointer;
+}
+
+.card-container img {
+    border-radius: 1em;
+    border: 2px solid rgb(207, 207, 207);
+    padding: 0.5em;
+    max-width: 100%;
+}
+
+.board {
+    display: inline-grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2em;
+    padding: 1em;
+}

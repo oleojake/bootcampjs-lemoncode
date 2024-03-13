@@ -1,6 +1,3 @@
-import { nuevaPartidaMotor } from "./motor";
-import { nuevaPartidaUI } from "./ui"
-
 export const enum Estado {
 	HA_GANADO = "HA_GANADO",
 	HA_PERDIDO = "HA_PERDIDO",
@@ -12,16 +9,15 @@ export const enum Estado {
 interface Partida {
     estado: Estado,
     puntos : number,
-    jugadas : number[]
-    iniciarPartida() : void,
+    jugadas : number[],
+    setEstado(estado: Estado) : void,
 }
 
 export const partida : Partida = {
     estado: Estado.JUGANDO,
     puntos: 0,
     jugadas: [],
-    iniciarPartida() {
-        nuevaPartidaUI();
-        nuevaPartidaMotor();
-    },
+    setEstado (newEstado : Estado) {
+        partida.estado = newEstado;
+    }
 }
