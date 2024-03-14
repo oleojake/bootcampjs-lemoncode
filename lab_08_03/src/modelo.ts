@@ -1,33 +1,17 @@
+import {__SRCIMAGENES} from "./constantes"
+
 interface InfoCarta {
     idFoto: number;
     imagen: string;
 };
 
 const infoCartas : InfoCarta[] = [
-    {
-        idFoto: 1,
-        imagen: "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/memo/1.png",
-    },
-    {
-        idFoto: 2,
-        imagen: "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/memo/2.png",
-    },
-    {
-        idFoto: 3,
-        imagen: "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/memo/3.png",
-    },
-    {
-        idFoto: 4,
-        imagen: "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/memo/4.png",
-    },
-    {
-        idFoto: 5,
-        imagen: "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/memo/5.png",
-    },
-    {
-        idFoto: 6,
-        imagen: "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/memo/6.png",
-    },
+    {idFoto: 1, imagen: __SRCIMAGENES.srcFotoId1},
+    {idFoto: 2, imagen: __SRCIMAGENES.srcFotoId2},
+    {idFoto: 3, imagen: __SRCIMAGENES.srcFotoId3},
+    {idFoto: 4, imagen: __SRCIMAGENES.srcFotoId4},
+    {idFoto: 5, imagen: __SRCIMAGENES.srcFotoId5},
+    {idFoto: 6, imagen: __SRCIMAGENES.srcFotoId6},
 ]
 
 export interface Carta {
@@ -68,8 +52,8 @@ export interface Tablero {
     cartas: Carta[];
     estadoPartida: EstadoPartida;
     intentos: number;
-    indiceCartaVolteadaA?: number;
-    indiceCartaVolteadaB?: number;
+    indiceCartaVolteadaA: number;
+    indiceCartaVolteadaB: number;
     cambiarEstadoTablero (estado : EstadoPartida) : void;
     sumarIntentos () : void;
     borrarIndices () : void;
@@ -81,6 +65,8 @@ const crearTableroInicial = (): Tablero => ({
     cartas: cartas,
     estadoPartida: "PartidaNoIniciada",
     intentos: 0,
+    indiceCartaVolteadaA: -1,
+    indiceCartaVolteadaB: -1,
     cambiarEstadoTablero(estado){
         this.estadoPartida = estado;
     },
@@ -88,8 +74,8 @@ const crearTableroInicial = (): Tablero => ({
         this.intentos += 1;
     },
     borrarIndices() {
-        this.indiceCartaVolteadaA = undefined;
-        this.indiceCartaVolteadaB = undefined;
+        this.indiceCartaVolteadaA = -1;
+        this.indiceCartaVolteadaB = -1;
     },
     borrarIntentos() {
         this.intentos = 0;
