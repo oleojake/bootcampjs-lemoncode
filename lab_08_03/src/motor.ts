@@ -84,6 +84,7 @@ export const getDivElementID = (indice : number) : string =>  {
     return (`${__CONSTANTES.divPrefixID}${indice}`);
 }
 
+
 export const getImageElementID = (indice : number) : string =>  {
     return (`${__CONSTANTES.imagePrefixID}${indice}`);
 }

@@ -32,7 +32,6 @@ let prueba5arrayCartas : InfoCarta[] = [
     },
 ]
 
-prueba5arrayCartas = [...prueba5arrayCartas, ...prueba5arrayCartas];
 // MUTABLE
 function shuffle <T>(array: T[]) {
     let currentIndex = array.length;
@@ -49,7 +48,6 @@ function shuffle <T>(array: T[]) {
     return array;
 }
 shuffle(prueba5arrayCartas);
-
 console.log(prueba5arrayCartas);
 
 const prueba5getSrc = (dataIndiceID : string) : string => {
@@ -77,8 +75,6 @@ const prueba5handleFlipCard = (div : HTMLDivElement) => {
         prueba5setSrc (src, cardImageID);
     }
 }
-
-
 
 const prueba5Container0 = document.getElementById("container-0");
 if (prueba5Container0 && prueba5Container0 instanceof HTMLDivElement) {

@@ -14,28 +14,32 @@ import {
     hayDosCartasLevantadas
 } from "./motor"
 
-const pintarParejaEncontradaGreen = (indiceA : number, indiceB : number) => {
+const cambiarBackgroundConDelay = (imageA: HTMLImageElement, imageB: HTMLImageElement, delay: number) : void => {
+    setTimeout(() => {
+        imageA.style.backgroundColor = "#00C6A8";
+        imageB.style.backgroundColor = "#00C6A8";
+    }, delay);
+}
+
+const pintarParejaEncontradaColorVerde = (indiceA : number, indiceB : number) : void => {
     const imageAElementID = getImageElementID(indiceA)
-    const imageBElementID = getImageElementID(indiceB)
     const imageA = document.getElementById(imageAElementID);
+    const imageBElementID = getImageElementID(indiceB)
     const imageB = document.getElementById(imageBElementID);
     if((imageA && imageA instanceof HTMLImageElement) && 
         (imageB && imageB instanceof HTMLImageElement)){
-        setTimeout(() => {
-            imageA.style.backgroundColor = "#00C6A8";
-            imageB.style.backgroundColor = "#00C6A8";
-        }, 380);
+        cambiarBackgroundConDelay(imageA, imageB, 300);
     }
 }
 
-const comprobarMostrarVictoria = () => {
+const comprobarMostrarVictoria = () : void => {
     if (esPartidaCompleta(tablero)) {
         tablero.cambiarEstadoTablero("PartidaCompleta");
         displayWarningMessage("HasCompletadoLaPartida");
     }
 }
 
-const addExitAnimation = (indiceA : number, indiceB : number) => {
+const addExitAnimation = (indiceA : number, indiceB : number) : void => {
     const divElementID1 = getDivElementID(indiceA)
     const div1 = document.getElementById(divElementID1)
     const divElementID2 = getDivElementID(indiceB)
@@ -53,7 +57,7 @@ const addExitAnimation = (indiceA : number, indiceB : number) => {
     }
 }
 
-const pintarVolteoHaciaAbajoDeLaPareja = (indiceA : number, indiceB : number) => {
+const pintarVolteoHaciaAbajoDeLaPareja = (indiceA : number, indiceB : number) : void => {
     addExitAnimation(indiceA, indiceB);
     const imageAElementID = getImageElementID(indiceA)
     setSrc (__CONSTANTES.srcBackCard, imageAElementID);
@@ -61,18 +65,18 @@ const pintarVolteoHaciaAbajoDeLaPareja = (indiceA : number, indiceB : number) =>
     setSrc (__CONSTANTES.srcBackCard, imageBElementID);
 }
 
-export const mostrarIntentos = () => {
+const mostrarIntentos = () : void => {
     const intentosElement = document.getElementById("intentos");
     if(intentosElement && intentosElement instanceof HTMLParagraphElement){
             intentosElement.innerText = `${__CONSTANTES.intentosPrefix}${tablero.intentos}`;
         }
 }
 
-const actualizarParejaJugada = (tablero : Tablero) => {
+const actualizarParejaJugada = (tablero : Tablero) : void => {
     const indiceA = tablero.indiceCartaVolteadaA;
     const indiceB = tablero.indiceCartaVolteadaB;
     if(sonPareja (indiceA, indiceB, tablero)){
-        pintarParejaEncontradaGreen(indiceA, indiceB);
+        pintarParejaEncontradaColorVerde(indiceA, indiceB);
         comprobarMostrarVictoria();
     }
     else {
@@ -94,13 +98,13 @@ const getIndice = (div : HTMLDivElement) : number => {
     return indice;
 }
 
-const setSrc = (src: string, idElement: string) => {
+const setSrc = (src: string, idElement: string) : void => {
     const cardImgElement = document.getElementById(idElement);
     if(cardImgElement && cardImgElement instanceof HTMLImageElement)
         cardImgElement.src = src;
 }
 
-const addEntryAnimation = (indice : number) => {
+const addEntryAnimation = (indice : number) : void => {
     const divElementID = getDivElementID(indice)
     const div = document.getElementById(divElementID)
     if(div && div instanceof HTMLDivElement) {
@@ -108,7 +112,7 @@ const addEntryAnimation = (indice : number) => {
     }
 }
 
-const voltearCartaHaciaArriba = (indice : number, tablero: Tablero) => {
+const voltearCartaHaciaArriba = (indice : number, tablero: Tablero) : void => {
     addEntryAnimation(indice);
     const imageElementID = getImageElementID(indice)
     const src = getSrc(tablero, indice);
@@ -117,7 +121,7 @@ const voltearCartaHaciaArriba = (indice : number, tablero: Tablero) => {
     }, 150);
 }
 
-export const handleFlipCard = (div : HTMLDivElement, tablero: Tablero) => {
+export const handleFlipCard = (div : HTMLDivElement, tablero: Tablero) : void => {
     const indice = getIndice(div);
     if (!estaLaPartidaIniciada(tablero)) {
         displayWarningMessage("DebesDarleAlBotón");
@@ -136,29 +140,27 @@ export const handleFlipCard = (div : HTMLDivElement, tablero: Tablero) => {
     }
 }
 
-export const restablecerAnimaciones = (tablero: Tablero) => {
+const quitarCursorNotAllowed = () : void => {
     const divlist = document.getElementsByClassName(__CSSCLASNAMES.standardDiv);
-    // Si es la primera vez, no hace falta reiniciar animaciones, solo se desbloquea el cursor not-allowed
-    if(tablero.estadoPartida === "PartidaNoIniciada") {
-        for(let i = 0 ; i < divlist.length; i++) {
-            divlist[i].className = __CSSCLASNAMES.standardDiv;
-        }
+    for(let i = 0 ; i < divlist.length; i++) {
+        divlist[i].className = __CSSCLASNAMES.standardDiv;
     }
-    // Si ya se ha jugado, se hace la animación de flip para voltear y se restablecen las cartas solo encontradas
-    else {
-        for(let i = 0 ; i < divlist.length; i++) {
-            if(tablero.cartas[i].encontrada === true){
-                divlist[i].classList.add(__CSSCLASNAMES.exitAnimation);
-                setTimeout(() => {
-                    // Cuando termina la animación empiezan con la clase estandar
-                    divlist[i].className = __CSSCLASNAMES.standardDiv;
-                }, 380);
-            }
+}
+
+const voltearTodasLasCartasEncontradasHaciaAbajo = () : void => {
+    const divlist = document.getElementsByClassName(__CSSCLASNAMES.standardDiv);
+    for(let i = 0 ; i < divlist.length; i++) {
+        if(tablero.cartas[i].encontrada === true){
+            divlist[i].classList.add(__CSSCLASNAMES.exitAnimation);
+            setTimeout(() => {
+                // Cuando termina la animación empiezan con la clase estandar
+                divlist[i].className = __CSSCLASNAMES.standardDiv;
+            }, 380);
         }
     }
 }
 
-export const mostrarCartasBocaAbajo = () => {
+const mostrarReversoCartas = () : void => {
     const imagelist = document.getElementsByClassName(__CSSCLASNAMES.standardImage);
         for(let i = 0 ; i < imagelist.length; i++) {
         (imagelist[i] as HTMLImageElement).src = __CONSTANTES.srcBackCard;
@@ -166,9 +168,11 @@ export const mostrarCartasBocaAbajo = () => {
     }
 }
 
-export const iniciarPartidaUI = (tablero: Tablero) => {
-    restablecerAnimaciones(tablero);
-    mostrarCartasBocaAbajo();
+const iniciarPartidaUI = (tablero: Tablero) : void => {
+    (tablero.estadoPartida === "PartidaNoIniciada")
+        ? quitarCursorNotAllowed()
+        : voltearTodasLasCartasEncontradasHaciaAbajo()
+    mostrarReversoCartas();
     displayWarningMessage("InformaciónGenérica");
 }
 
@@ -182,7 +186,7 @@ export const iniciaPartida = (tablero: Tablero): void => {
     mostrarIntentos();
 };
 
-const displayWarningMessage = (display : WarningMessage) => {
+const displayWarningMessage = (display : WarningMessage) : void => {
     const warningMessageElement = document.getElementById("warning-message");
     if(warningMessageElement && warningMessageElement instanceof HTMLParagraphElement) {
         switch (display) {

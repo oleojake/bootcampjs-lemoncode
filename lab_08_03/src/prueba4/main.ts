@@ -2,7 +2,6 @@ console.log("Prueba de Concepto 4");
 
 
 const prueba4changeCardSrc1 = () : void => {
-    console.log("Hola");
     const card1Image = document.getElementById("image-1");
     if (card1Image && card1Image instanceof HTMLImageElement) {
         card1Image.src = "https://raw.githubusercontent.com/Lemoncode/fotos-ejemplos/main/memo/1.png";

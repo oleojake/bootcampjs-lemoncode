@@ -159,7 +159,6 @@ const queHubieraPasado = () : void => {
 }
 
 // LAS HE MOVIDO AQUÍ DESDE SHELL PARA EVITAR DEPENDENCIA CIRCULAR
-
     const botonNuevaPartida = document.getElementById("boton-nueva-partida");
         if (botonNuevaPartida !== null && botonNuevaPartida !== undefined
             && botonNuevaPartida instanceof HTMLButtonElement) {
