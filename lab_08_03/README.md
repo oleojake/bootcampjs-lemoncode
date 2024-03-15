@@ -22,7 +22,7 @@ Queremos implementar el clásico juego de las parejas ¿En que consiste esto?
 
 El juego se ha implementando siguiendo las directrices del enunciado, el usuario debe voltear las cartas y memorizar las imágenes para emparejarlas.
 
-!([/src/content/readme_img/ScreenGif.gif](https://github.com/oleojake/bootcampjs-lemoncode/blob/main/lab_08_03/src/content/readme_img/ScreenGif.gif))
+!([/src/content/readme_img/ScreenGif.gif](/src/content/readme_img/ScreenGif.gif)
 
 ### Apartados opcionales implementados
 
