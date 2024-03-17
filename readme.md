@@ -13,7 +13,7 @@
 #### ✔️ Laboratorio Módulo 8.2 - Array Methods => ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_08_02))		
 #### ✔️ Laboratorio Módulo 8.3 - Aplicación Memoria => ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_08_03))				
 #### ✔️ Laboratorio Módulo 9 - 9.1 Ticket de compra	=> ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_09_01))		
-#### Laboratorio Módulo 9 - 9.2 Clave fuerte			
+#### ✔️ Laboratorio Módulo 9 - 9.2 Clave fuerte => ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_09_02))			
 #### Laboratorio Módulo 10 - Asincronía			
 #### Laboratorio Módulo 11 - Expresiones Regulares		
 #### Laboratorio Módulo 12 - Clases	
