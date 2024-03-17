@@ -1,5 +1,4 @@
-# Laboratorio Módulo 9.1 - Ticket de la Compra => 
-## Software Hospitalario ([TypeScript](src/))
+# Laboratorio Módulo 9.1 - Ticket de la Compra => ([TypeScript](src/))
 
 Vamos a hacer un programa que nos calcule el precio de un ticket de compra.
 

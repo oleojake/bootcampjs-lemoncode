@@ -42,9 +42,7 @@ const productos: LineaTicket[] = [
 const calculaTicket = (lineasTicket: LineaTicket[]): TicketFinal => {
 
     const calculoLineas : ResultadoLineaTicket[] = calculoLineasTicket(lineasTicket);
-
     const calculosTotales : ResultadoTotalTicket = calculoTotales(calculoLineas)
-
     const calculoDesgloseIVA : TotalPorTipoIva[] = calculoDesglosePorIVA(calculoLineas);
 
     const ticketFinal : TicketFinal = {
