@@ -141,4 +141,4 @@ const validarClave = (nombreUsuario: string, clave: string, commonPasswords: str
     return claveParaValidar
 };
 
-console.log(validarClave("pablo", "oleoA1@dsad", commonPasswords));
+console.log(validarClave("pablo", "Doly2@pabhelolto", commonPasswords));

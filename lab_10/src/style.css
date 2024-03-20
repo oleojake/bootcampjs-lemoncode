@@ -1,0 +1,83 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding: 0px;
+  margin: 0px;
+  background-color: #E5EAEE;
+  text-align: center;
+}
+
+#listado-personajes{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
+
+}
+.personaje-contenedor{
+  background-color: white;
+  padding: 5%;
+}
+
+.personaje-contenedor img{
+  max-height: 200px;
+}
+
+.personaje-contenedor p{
+  width: 80%;
+  text-align: left;
+  font-size: 0.9em;
+  margin: 0.5em;
+}
+
+.boton-buscar {
+  background-color: #5AABFF;
+  border: none;
+  padding: 0.4em 1em;
+  margin: 0.4em;
+  cursor: pointer;
+}
+
+.boton-editar {
+  background-color: #41C08B;
+  border: none;
+  padding: 0.4em 1em;
+  margin: 0.4em;
+  cursor: pointer;
+}
+
+.boton-borrar {
+  background-color: #FF8566;
+  border: none;
+  padding: 0.4em 1em;
+  margin: 0.4em;
+  cursor: pointer;
+}
+
+#formulario-editar-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 25vw;
+  padding: 2em;
+  background-color: white;
+}
+
+#formulario-editar{
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+#formulario-editar > label,
+#formulario-editar > input {
+  margin: 0.1em;
+}
+
+#formulario-editar > button{
+  margin-top: 1em;
+}
