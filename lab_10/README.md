@@ -10,7 +10,7 @@ Si el usuario introduce un nombre en el campo de texto y pulsa el botón de filt
 
 Por defecto se cargan todos los personajes pero si se realiza una búsqueda se vuelve a realizar una llamada a la API filtrada por el nombre.
 
-![listado personajes](src\content\readme_img\screen1.PNG)
+![listado personajes](src/content/readme_img/screen1.PNG)
 
 
 ### 2. (Opcional) Se ha añadido la funcionalidad para borrar personajes "DELETE"
@@ -25,4 +25,4 @@ export const borrarPersonajeAPI = async (id:string): Promise<void> => {
 ````
 ### 3. (Opcional) Se ha añadido la funcionalidad para editar personajes "PUT"
 
-![editar personajes](src\content\readme_img\screen2.PNG)
+![editar personajes](src/content/readme_img/screen2.PNG)
