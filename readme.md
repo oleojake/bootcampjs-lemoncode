@@ -15,7 +15,7 @@
 #### ✔️ Laboratorio Módulo 9 - 9.1 Ticket de compra	=> ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_09_01))		
 #### ✔️ Laboratorio Módulo 9 - 9.2 Clave fuerte => ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_09_02))			
 #### ✔️Laboratorio Módulo 10 - Asincronía => ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_10))					
-#### Laboratorio Módulo 11 - Expresiones Regulares		
+#### ✔️ Laboratorio Módulo 11 - Expresiones Regulares => ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_11))			
 #### Laboratorio Módulo 12 - Clases	
 #### Laboratorio Módulo 13.1 - React Movimientos	
 #### Laboratorio Módulo 13.2 - React Agregar Cuenta
