@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css">
+    <title>✔️ Validar IBAN</title>
+  </head>
+  <body>
+      <h1>✔️ Validar IBAN</h1>
+      <form id="formulario">
+        <label for="inputiban">Introduce tu número de Cuenta IBAN:</label>
+        <input id="inputiban" name="inputiban" type="text" required>
+        <button class="boton-validar" type="submit">Validar</button>
+      </form>
+      <div id="informacion-iban">
+      </div>
+      <script type="module" src="validar-iban/main.ts"></script>
+  </body>
+</html>
