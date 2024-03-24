@@ -2,4 +2,4 @@ import { __COMMON_PASSWORDS } from "./constantes";
 import { validarClave } from "./motor";
 
 
-console.log(validarClave("pablo", "Doly@adm678in", __COMMON_PASSWORDS));
+console.log(validarClave("pablo", "dolY@shados23", __COMMON_PASSWORDS));

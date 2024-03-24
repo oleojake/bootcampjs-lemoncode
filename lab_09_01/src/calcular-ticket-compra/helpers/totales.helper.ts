@@ -9,7 +9,7 @@ export const calculoTotalesConIVA = (ResultadoLineasTicket: ResultadoLineaTicket
         calculoConIva = calculoConIva + ResultadoLineasTicket[i].precioConIva;
     }
 
-    return calculoConIva;
+    return Number(calculoConIva.toFixed(2));
 }
 
 // Función Auxiliar
@@ -19,7 +19,7 @@ export const calculoTotalesSinIVA = (ResultadoLineasTicket: ResultadoLineaTicket
         calculoSinIva = calculoSinIva + ResultadoLineasTicket[i].precionSinIva
     }
 
-    return calculoSinIva;
+    return Number(calculoSinIva.toFixed(2));
 }
 
 // Función Auxiliar
@@ -29,7 +29,7 @@ export const calculoTotalesIVA = (ResultadoLineasTicket: ResultadoLineaTicket[])
         calculoIva = calculoIva + calculoDiferenciaIVA(ResultadoLineasTicket[i].precioConIva,ResultadoLineasTicket[i].precionSinIva);
     }
 
-    return calculoIva;
+    return Number(calculoIva.toFixed(2));
 }
 
 // Función Principal

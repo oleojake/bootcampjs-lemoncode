@@ -14,7 +14,7 @@ const productos: LineaTicket[] = [
         producto: {
             nombre: "Perfume",
             precio: 20,
-            tipoIva: "general",
+            tipoIva: "reducido",
         },
         cantidad: 3,
     },
@@ -22,7 +22,7 @@ const productos: LineaTicket[] = [
         producto: {
             nombre: "Leche",
             precio: 1,
-            tipoIva: "superreducidoC",
+            tipoIva: "reducido",
         },
         cantidad: 6,
     },
