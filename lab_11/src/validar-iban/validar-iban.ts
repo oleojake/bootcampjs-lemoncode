@@ -1,19 +1,18 @@
 import { __NOMBRE_DEL_BANCO } from "./constantes";
 import { datosIBANSucursal } from "./validar-iban.modelo";
+import { isValidIBAN } from 'ibantools';
+
 
 export const estaBienFormadoElIBAN = (IBAN : string) : boolean => {
     const regex =/^[A-Z]{2}\d{2}(\s|-)?\d{4}(\s|-)?\d{4}(\s|-)?\d{2}(\s|-)?\d{10}$/;
-    console.log("Está bien formado: " + IBAN + " " + regex.test(IBAN));
     return regex.test(IBAN);
 }
 
 export const esIBANvalido = (IBAN : string) : boolean => {
-    /*const ibantools = require('ibantools');
-    console.log(ibantools.isValidIBAN(IBAN));
-    console.log(ibantools.validateIBAN('NL91ABNA0517164300'));*/
-
-    console.log("Es Válido : " + IBAN + " ");
-    return true;
+    const IBANLimpia = IBAN.replace(/(\s)|(-)/g ,"");
+    console.log(IBANLimpia);
+    console.log(isValidIBAN(IBANLimpia))
+    return isValidIBAN(IBANLimpia);
 }
 
 const asignarNombreDelBanco = (codigoBanco : string, datosExtraidos : datosIBANSucursal)  => {

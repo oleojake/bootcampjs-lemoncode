@@ -34,17 +34,20 @@ const pintarDatosInformacionSucursal = (datosextraidos : datosIBANSucursal) => {
     const elementoInformacionIBAN = document.getElementById("informacion-iban");
     if (elementoInformacionIBAN && elementoInformacionIBAN instanceof HTMLDivElement){
         let parrafoBanco = document.createElement("p");
-            parrafoBanco = crearElementoParrafo (`Banco: <strong>${datosextraidos.banco}</strong>`);
-            elementoInformacionIBAN.appendChild(parrafoBanco)
-            let parrafoSucursal = document.createElement("p");
-            parrafoSucursal = crearElementoParrafo (`Código Sucursal: <strong>${datosextraidos.codigo_sucursal}</strong>`);
-            elementoInformacionIBAN.appendChild(parrafoSucursal)
-            let parrafoDigitoDeControl = document.createElement("p");
-            parrafoDigitoDeControl = crearElementoParrafo (`Dígito de Control: <strong>${datosextraidos.digito_control}</strong>`);
-            elementoInformacionIBAN.appendChild(parrafoDigitoDeControl)
-            let parrafoCuenta = document.createElement("p");
-            parrafoCuenta = crearElementoParrafo (`Número de Cuenta: <strong>${datosextraidos.numero_cuenta}</strong>`);
-            elementoInformacionIBAN.appendChild(parrafoCuenta)
+        parrafoBanco = crearElementoParrafo (`Banco: <strong>${datosextraidos.banco}</strong>`);
+        elementoInformacionIBAN.appendChild(parrafoBanco)
+
+        let parrafoSucursal = document.createElement("p");
+        parrafoSucursal = crearElementoParrafo (`Código Sucursal: <strong>${datosextraidos.codigo_sucursal}</strong>`);
+        elementoInformacionIBAN.appendChild(parrafoSucursal)
+
+        let parrafoDigitoDeControl = document.createElement("p");
+        parrafoDigitoDeControl = crearElementoParrafo (`Dígito de Control: <strong>${datosextraidos.digito_control}</strong>`);
+        elementoInformacionIBAN.appendChild(parrafoDigitoDeControl)
+        
+        let parrafoCuenta = document.createElement("p");
+        parrafoCuenta = crearElementoParrafo (`Número de Cuenta: <strong>${datosextraidos.numero_cuenta}</strong>`);
+        elementoInformacionIBAN.appendChild(parrafoCuenta)
     }
 }
 

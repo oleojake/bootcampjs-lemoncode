@@ -1,7 +1,14 @@
 import { extraerEnlaces, extraerNombreImagenes } from "./extraer-enlaces";
 
-
-
+const limpiarContenedor = () => {
+    const elementoEnlaces = document.getElementById("informacion-enlaces");
+    const contenedorImagenes = document.getElementById("contenedor-imagenes");
+    if (elementoEnlaces && elementoEnlaces instanceof HTMLDivElement &&
+        contenedorImagenes && contenedorImagenes instanceof HTMLDivElement){
+        elementoEnlaces.innerHTML="";
+        contenedorImagenes.innerHTML="";
+    }
+}
 
 const pintarEnlacesImagenes = (srcImagenes : string []) => {
     const elementoEnlaces = document.getElementById("informacion-enlaces");
@@ -17,7 +24,7 @@ const pintarEnlacesImagenes = (srcImagenes : string []) => {
             li.appendChild(a);            
             ol.appendChild(li);
         }
-        elementoEnlaces?.appendChild(parrafoEnlaces)
+        elementoEnlaces.appendChild(parrafoEnlaces)
         elementoEnlaces.appendChild(ol);
     }
 }
@@ -40,20 +47,29 @@ const pintarContenedorImagenes = (srcImagenes : string []) => {
     }
 }
 
-const limpiarContenedor = () => {
+const pintarNoSeHanEncontradoImagenes = () => {
     const elementoEnlaces = document.getElementById("informacion-enlaces");
-    const contenedorImagenes = document.getElementById("contenedor-imagenes");
-    if (elementoEnlaces && elementoEnlaces instanceof HTMLDivElement &&
-        contenedorImagenes && contenedorImagenes instanceof HTMLDivElement){
-        elementoEnlaces.innerHTML="";
-        contenedorImagenes.innerHTML="";
+    if (elementoEnlaces && elementoEnlaces instanceof HTMLDivElement){
+        const parrafoEnlaces = document.createElement("p");
+        parrafoEnlaces.innerHTML = "<strong>⚠️ No se ha encontrado ninguna imagen</strong>"
+        elementoEnlaces.appendChild(parrafoEnlaces)
     }
+}
+
+const seHaEncontradoAlgunaImagen = (srcImagenes: string[]) : boolean => {
+    return (srcImagenes.length > 1)
+    ? true
+    : false
 }
 
 export const mostrarInformacionEnlaces = (codigo : string) => {
     const srcImagenes : string [] = extraerEnlaces(codigo);
-    
     limpiarContenedor();
-    pintarEnlacesImagenes(srcImagenes);
-    pintarContenedorImagenes(srcImagenes);
+
+    if (seHaEncontradoAlgunaImagen(srcImagenes)) {
+        pintarEnlacesImagenes(srcImagenes);
+        pintarContenedorImagenes(srcImagenes);
+    } else {
+        pintarNoSeHanEncontradoImagenes();
+    }
 }
