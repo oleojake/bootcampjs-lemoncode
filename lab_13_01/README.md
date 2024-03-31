@@ -1,8 +1,27 @@
-# Laboratorio React - Banca Online
+# Laboratorio REACT Módulo 13 - Banca Online
+## Parte 1: Movimientos de una cuenta => ([TypeScript](src/movement-list))
 
-## Objetivo
+## Descripción
 
-El objetivo de este laboratorio es crear una aplicación web utilizando React aplicando todos los conocimientos obtenidos en el bootcamp.
+La aplicación consiste en una banca online, donde el usuario puede ver sus cuentas, ver los movimientos de una cuenta y hacer transferencias.
+
+Vamos a tener las siguientes pantallas:
+
+- Login
+- Mis cuentas
+- Creación y edición de cuentas
+- Movimientos de una cuenta
+- Transferencias tanto desde un enlace cómo a partir de movimientos hacer una transferencia desde una cuenta determinada.
+
+## Requisitos
+
+- La aplicación debe está desarrollada con React.
+- El backend está montado sobre JSON Server.
+- La aplicación es responsive.
+- La aplicación tiene un menú superior con las siguientes opciones:
+  - Mis cuentas
+  - Transferencias
+  - Movimientos, solo se quiere ver los movimientos de una cuenta.
 
 ## Instalación
 
@@ -48,37 +67,6 @@ Para poder logarse en la aplicación, se debe utilizar el siguiente usuario y co
 Usuario: admin@email.com
 Contraseña: test
 ```
-
-## Descripción
-
-La aplicación consiste en una banca online, donde el usuario puede ver sus cuentas, ver los movimientos de una cuenta y hacer transferencias.
-
-Vamos a tener las siguientes pantallas:
-
-- Login
-- Mis cuentas
-- Creación y edición de cuentas
-- Movimientos de una cuenta
-- Transferencias tanto desde un enlace cómo a partir de movimientos hacer una transferencia desde una cuenta determinada.
-
-## Requisitos
-
-- La aplicación debe está desarrollada con React.
-- El backend está montado sobre JSON Server.
-- La aplicación es responsive.
-- La aplicación tiene un menú superior con las siguientes opciones:
-  - Mis cuentas
-  - Transferencias
-  - Movimientos, solo se quiere ver los movimientos de una cuenta.
-
-## Servidor
-
-El servidor está montado sobre JSON Server, y tiene los siguientes endpoints:
-
-- La URL base es: http://localhost:3000/api, se puede cambiar el puerto en el fichero package.json.
-- Para obtener el listado de cuentas: GET /account-list
-- Para obtener una cuenta: GET /account-list/:id
-- Para crear una cuenta: POST /account-list
-- Para editar una cuenta: PATCH /account-list/:id, por el tema que cuando se crea una cuenta en backend se asignan unos campos específicos, que se pueden ver en el fichero account.middleware.js.
-- Para obtener los movimientos de una cuenta: GET /movements/:id
-- Para hacer una transferencia: POST /transfer.
+![login](/public/readme_img/login.PNG)
+![account_list](/public/readme_img/accounts.PNG)
+![movements](/public/readme_img/movements.PNG)
