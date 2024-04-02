@@ -67,6 +67,6 @@ Para poder logarse en la aplicación, se debe utilizar el siguiente usuario y co
 Usuario: admin@email.com
 Contraseña: test
 ```
-![login](/public/readme_img/login.PNG)
-![account_list](/public/readme_img/accounts.PNG)
-![movements](/public/readme_img/movements.PNG)
+![login](public/readme_img/login.PNG)
+![account_list](public/readme_img/accounts.PNG)
+![movements](public/readme_img/movements.PNG)
