@@ -1,5 +1,5 @@
 # Laboratorio REACT Módulo 13 - Banca Online
-## Parte 2: Agregar Cuenta => ([TypeScript](src/account))
+## Parte 2: Agregar Cuenta => ([TypeScript](src/pages/account))
 
 ## Descripción
 
@@ -15,11 +15,11 @@ Para poder logarse en la aplicación, se debe utilizar el siguiente usuario y co
 Usuario: admin@email.com
 Contraseña: test
 ```
-![login](/public/readme_img/login.PNG)
+![login](public/readme_img/login.PNG)
 
 ## Resultado
 
-![account_list](/public/readme_img/new-account.PNG)
+![account_list](public/readme_img/new-account.PNG)
 
 ### Extra, verificación Alias existente
 
@@ -40,4 +40,4 @@ Se ha añadido una opción en el desplegable donde se muestra el Listado de Cuen
 
 Para ello se ha implementado un método **DELETE con Axios**. 
 
-![account_list](/public/readme_img/delete-account.PNG)
+![account_list](public/readme_img/delete-account.PNG)
