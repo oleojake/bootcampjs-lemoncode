@@ -1,5 +1,5 @@
 # Laboratorio REACT Módulo 13 - Banca Online
-## Parte 1: Movimientos de una cuenta => ([TypeScript](src/movement-list))
+## Parte 1: Movimientos de una cuenta => ([TypeScript](src/pages/movement-list))
 
 ## Descripción
 
