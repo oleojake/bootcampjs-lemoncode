@@ -32,12 +32,14 @@ class ClienteReserva {
     reservas : Reserva [];
     precioNocheStandar : number;
     precioNocheSuite : number;
+    precioPorPersona : number
     precioDesayuno: number;
 
     constructor (reservas : Reserva []) {
         this.reservas = reservas;
         this.precioNocheStandar = 100;
         this.precioNocheSuite = 150;
+        this.precioPorPersona = 40;
         this.precioDesayuno = 15;
     }
 
@@ -45,19 +47,19 @@ class ClienteReserva {
         let acc = 0;
         for (let i = 0 ; i < this.reservas.length; i++) {
             if (this.reservas[i].tipoHabitacion === "standard"){
-                acc += this.precioNocheStandar * this.reservas[i].noches + (40 * this.reservas[i].pax);
+                acc += this.precioNocheStandar * this.reservas[i].noches + (this.precioPorPersona * this.reservas[i].pax);
             } else if(this.reservas[i].tipoHabitacion === "suite"){
-                acc += this.precioNocheSuite * this.reservas[i].noches + (40 * this.reservas[i].pax);
+                acc += this.precioNocheSuite * this.reservas[i].noches + (this.precioPorPersona * this.reservas[i].pax);
             }
             if(this.reservas[i].desayuno) {
                 acc += this.precioDesayuno * this.reservas[i].pax * this.reservas[i].noches
             }
         }
-        return acc;
+        return Number(acc.toFixed(2));
     }
 
     get total() {
-        return this.subtotal * 1.21;
+        return Number((this.subtotal * 1.21).toFixed(2));
     }
 }
 
@@ -85,18 +87,7 @@ class ClienteOperador extends ClienteReserva {
     }
 
     get subtotal() {
-        let acc = 0;
-        for (let i = 0 ; i < this.reservas.length; i++) {
-            if (this.reservas[i].tipoHabitacion === "standard"){
-                acc += this.precioNocheStandar * this.reservas[i].noches + (40 * this.reservas[i].pax);
-            } else if(this.reservas[i].tipoHabitacion === "suite"){
-                acc += this.precioNocheSuite * this.reservas[i].noches + (40 * this.reservas[i].pax);
-            }
-            if(this.reservas[i].desayuno) {
-                acc += this.precioDesayuno * this.reservas[i].pax * this.reservas[i].noches
-            }
-        }
-        return acc - (this.descuento * acc) / 100
+        return (super.subtotal * (100 - this.descuento)) / 100
     }
     
 }

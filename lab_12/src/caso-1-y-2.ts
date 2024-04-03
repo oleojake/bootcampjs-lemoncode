@@ -28,20 +28,22 @@ class ClienteParticular {
     reservas : Reserva [];
     precioNocheStandar : number;
     precioNocheSuite : number;
+    precioPorPersona : number
 
     constructor (reservas : Reserva []) {
         this.reservas = reservas;
         this.precioNocheStandar = 100;
         this.precioNocheSuite = 150;
+        this.precioPorPersona = 40;
     }
 
     get subtotal() {
         let acc = 0;
         for (let i = 0 ; i < this.reservas.length; i++) {
             if (this.reservas[i].tipoHabitacion === "standard"){
-                acc += this.precioNocheStandar * this.reservas[i].noches + (40 * this.reservas[i].pax);
+                acc += this.precioNocheStandar * this.reservas[i].noches + (this.precioPorPersona * this.reservas[i].pax);
             } else if(this.reservas[i].tipoHabitacion === "suite"){
-                acc += this.precioNocheSuite * this.reservas[i].noches + (40 * this.reservas[i].pax);
+                acc += this.precioNocheSuite * this.reservas[i].noches + (this.precioPorPersona * this.reservas[i].pax);
             }
         }
         return acc;
@@ -59,20 +61,16 @@ console.log(totalesClienteParticular.total);
 
 class ClienteOperador extends ClienteParticular {
     descuento : number;
-    precioNoche : number;
 
     constructor (reservas : Reserva []) {
         super(reservas);
         this.descuento = 15;
-        this.precioNoche = 100;
+        this.precioNocheStandar = 100;
+        this.precioNocheSuite = 100;
     }
 
     get subtotal() {
-        let acc = 0;
-        for (let i = 0 ; i < this.reservas.length; i++) {
-            acc += this.precioNoche * this.reservas[i].noches + (40 * this.reservas[i].pax);
-        }
-        return acc - (this.descuento * acc) / 100
+        return (super.subtotal * (100 - this.descuento)) / 100
     }
     
 }
