@@ -1,17 +1,19 @@
 import { AppLayout } from "@/layouts";
 import React from "react";
-import { Account } from "./account.model";
+import { NewAccountVm } from "./account.model";
 import classes from "./account.page.module.css"
 import { NewAccountComponent } from "./component/account-form.component";
 import { saveAccount } from "./api";
 import { useNavigate } from "react-router-dom";
 import { appRoutes } from "@/core/router";
+import { mapNewAccountFromVmToApi } from "./account.mapper";
 
 export const AccountPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleNewAccount = (newAccountInfo: Account) => {
-    saveAccount(newAccountInfo).then((result) => {
+  const handleNewAccount = (newAccountInfo: NewAccountVm) => {
+    const newAccountInfoAPI = mapNewAccountFromVmToApi(newAccountInfo);
+    saveAccount(newAccountInfoAPI).then((result) => {
       if (result) {
         alert("Nueva cuenta creada con éxito");
         navigate(appRoutes.accountList);

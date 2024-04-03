@@ -18,4 +18,4 @@
 #### ✔️ Laboratorio Módulo 11 - Expresiones Regulares => ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_11))			
 #### Laboratorio Módulo 12 - Clases	 
 #### ✔️ Laboratorio Módulo 13.1 - React Movimientos => ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_13_01))	
-#### Laboratorio Módulo 13.2 - React Agregar Cuenta
+#### ✔️ Laboratorio Módulo 13.2 - React Agregar Cuenta => ([📁src](https://github.com/oleojake/bootcampjs-lemoncode/tree/main/lab_13_02))	

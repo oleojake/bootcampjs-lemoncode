@@ -1,8 +1,6 @@
 import { NAME_ACCOUNT_ALREADY_EXISTS, REQUIRED_FIELD_MESSAGE } from "@/common/validations/validation.const";
 import {validateAccountType, validateNameField } from "./account-field.validation";
-import { AccountVm } from "../account.model";
-
-
+import { ExistingAccountVm } from "../account.model";
 
 describe("account-field.validation specs", () => {
     describe("validateAccountType", () => {
@@ -34,7 +32,7 @@ describe("account-field.validation specs", () => {
         it("should return false when account name is empty", () => {
             // Arrange
             const value = "";
-            const accountList: AccountVm[] = [{id:"1", alias:"ahorros"}];
+            const accountList: ExistingAccountVm[] = [{id:"1", alias:"ahorros"}];
             // Act
             const result = validateNameField(value, accountList);
             
@@ -46,7 +44,7 @@ describe("account-field.validation specs", () => {
         it("should return true when account name is informed", () => {
             // Arrange
             const value = "Nómina";
-            const accountList: AccountVm[] = [{id:"1", alias:"ahorros"}];
+            const accountList: ExistingAccountVm[] = [{id:"1", alias:"ahorros"}];
 
             // Act
             const result = validateNameField(value, accountList);
@@ -58,7 +56,7 @@ describe("account-field.validation specs", () => {
         it("should return false when the account name already exists", () => {
             // Arrange
             const value = "ahorros";
-            const accountList: AccountVm[] = [{id:"1", alias:"ahorros"}];
+            const accountList: ExistingAccountVm[] = [{id:"1", alias:"ahorros"}];
             
             // Act
             const result = validateNameField(value, accountList);
@@ -71,7 +69,7 @@ describe("account-field.validation specs", () => {
         it("should return true when the account name does not exists", () => {
             // Arrange
             const value = "ahorros2";
-            const accountList: AccountVm[] = [{id:"1", alias:"ahorros"}];
+            const accountList: ExistingAccountVm[] = [{id:"1", alias:"ahorros"}];
             
             // Act
             const result = validateNameField(value, accountList);

@@ -1,9 +1,9 @@
 import { FormValidationResult } from "@/common/validations/validation.model";
-import { Account, AccountFormErrors, AccountVm } from "../account.model";
+import { NewAccountVm, NewAccountFormErrors, ExistingAccountVm } from "../account.model";
 import { validateAccountType, validateNameField } from "./account-field.validation";
 
 
-export const validateForm = (account: Account, accountList: AccountVm[]): FormValidationResult<AccountFormErrors> => {
+export const validateForm = (account: NewAccountVm, accountList: ExistingAccountVm[]): FormValidationResult<NewAccountFormErrors> => {
     const fieldValidationResults = [
         validateAccountType(account.type),
         validateNameField(account.name, accountList),

@@ -1,26 +1,26 @@
-export interface Account {
+export interface NewAccountVm {
     type: string;
     name: string;
 }
 
-export const buildEmptyAccount = () : Account => {
+export const buildEmptyAccount = () : NewAccountVm => {
     return ({
         type: "",
         name: "",
     })
 }
 
-export interface AccountFormErrors {
+export interface NewAccountFormErrors {
     type: string;
     name: string;
 }
 
-export const createEmptyAccountFormErrors = (): AccountFormErrors => ({
+export const createEmptyAccountFormErrors = (): NewAccountFormErrors => ({
     type: "",
     name: "",
 });
 
-export interface AccountVm {
+export interface ExistingAccountVm {
     id: string;
     alias: string;
 }

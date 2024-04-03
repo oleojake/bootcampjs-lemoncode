@@ -5,10 +5,11 @@ import { AccountListItemComponent } from "./account-list-item.component";
 
 interface Props {
   accountList: AccountVm[];
+  onDelete: (id: string) => void;
 }
 
 export const AccountListTableComponent: React.FC<Props> = (props) => {
-  const { accountList } = props;
+  const { accountList, onDelete } = props;
 
   return (
     <>
@@ -22,7 +23,7 @@ export const AccountListTableComponent: React.FC<Props> = (props) => {
         </div>
 
         {accountList.map((account) => (
-          <AccountListItemComponent key={account.id} accountItem={account} />
+          <AccountListItemComponent key={account.id} accountItem={account} onDelete={onDelete}/>
         ))}
       </div>
     </>

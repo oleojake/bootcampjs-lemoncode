@@ -5,3 +5,13 @@ const url = `${import.meta.env.VITE_BASE_API_URL}/account-list`;
 
 export const getAccountList = (): Promise<Account[]> =>
   Axios.get<Account[]>(url).then(({ data }) => data);
+
+
+
+export const deleteAccount = async (id:string): Promise<void> => {
+  try {
+      await Axios.delete(`${url}/${id}`);
+  } catch (error) {
+      throw new Error("Error al borrar la cuenta");
+  }
+};

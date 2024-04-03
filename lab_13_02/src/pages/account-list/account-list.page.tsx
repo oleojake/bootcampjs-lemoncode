@@ -3,7 +3,7 @@ import { AppLayout } from "@/layouts";
 import { AccountVm } from "./account-list.vm";
 import classes from "./account-list.page.module.css";
 import { AccountListTableComponent } from "./components/account-list-table.component";
-import { getAccountList } from "./api";
+import { deleteAccount, getAccountList } from "./api";
 import { mapAccountListFromApiToVm } from "./account-list.mapper";
 import { Link } from "react-router-dom";
 import { appRoutes } from "@/core/router";
@@ -17,6 +17,14 @@ export const AccountListPage: React.FC = () => {
     );
   }, []);
 
+  const handleDeleteAccount = (id: string) => {
+    deleteAccount(id);
+    alert("Cuenta Eliminada con éxito");
+    getAccountList().then((result) =>
+      setAccountList(mapAccountListFromApiToVm(result))
+    );
+  }
+
   return (
     <AppLayout>
       <div className={classes.root}>
@@ -26,7 +34,7 @@ export const AccountListPage: React.FC = () => {
             <button>AGREGAR NUEVA CUENTA</button>
           </Link>
         </div>
-        <AccountListTableComponent accountList={accountList} />
+        <AccountListTableComponent accountList={accountList} onDelete={handleDeleteAccount} />
       </div>
     </AppLayout>
   );

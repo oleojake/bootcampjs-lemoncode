@@ -1,4 +1,4 @@
-export interface AccountAPI {
+export interface ExistingAccountAPI {
     id: string;
     iban: string;
     type: string;

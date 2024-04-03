@@ -1,63 +1,11 @@
 # Laboratorio REACT Módulo 13 - Banca Online
-## Parte 1: Movimientos de una cuenta => ([TypeScript](src/movement-list))
+## Parte 2: Agregar Cuenta => ([TypeScript](src/account))
 
 ## Descripción
 
-La aplicación consiste en una banca online, donde el usuario puede ver sus cuentas, ver los movimientos de una cuenta y hacer transferencias.
+Queremos que un usuario pueda agregar una cuenta a su lista de cuentas.
 
-Vamos a tener las siguientes pantallas:
-
-- Login
-- Mis cuentas
-- Creación y edición de cuentas
-- Movimientos de una cuenta
-- Transferencias tanto desde un enlace cómo a partir de movimientos hacer una transferencia desde una cuenta determinada.
-
-## Requisitos
-
-- La aplicación debe está desarrollada con React.
-- El backend está montado sobre JSON Server.
-- La aplicación es responsive.
-- La aplicación tiene un menú superior con las siguientes opciones:
-  - Mis cuentas
-  - Transferencias
-  - Movimientos, solo se quiere ver los movimientos de una cuenta.
-
-## Instalación
-
-Para instalar el proyecto, ejecutar el siguiente comando:
-
-```bash
-npm install
-```
-
-Con este comando se instalarán tanto las dependencias de la aplicación como las del servidor.
-
-## Ejecución
-
-Para ejecutar el proyecto, ejecutar el siguiente comando:
-
-```bash
-npm run dev
-```
-
-También se puede hacer desde la raíz de la aplicación, arrancar la aplicación por separado:
-
-```bash
-npm run dev
-```
-
-Y el servidor, vamos a la carpeta server:
-
-```bash
-cd server
-```
-
-Y ejecutamos el siguiente comando:
-
-```bash
-npm start
-```
+En esta ventana se le pide al usuario el tipo de cuenta a crear (cuenta corriente, ahorro) y que Alias le quiere poner.
 
 ## Acceso
 
@@ -68,5 +16,28 @@ Usuario: admin@email.com
 Contraseña: test
 ```
 ![login](/public/readme_img/login.PNG)
-![account_list](/public/readme_img/accounts.PNG)
-![movements](/public/readme_img/movements.PNG)
+
+## Resultado
+
+![account_list](/public/readme_img/new-account.PNG)
+
+### Extra, verificación Alias existente
+
+Además de las validaciones clásicas en el formulario (campos cumplimentados) se ha añadido una verificación de que el **Alias** seleccionado no es igual a una cuenta ya existente. 
+
+````JavaScript
+const thisAccountAlreadyExists = (value: string, accountList: ExistingAccountVm[]): boolean => {
+    const accountNameExists : boolean = accountList.some(
+        (account : ExistingAccountVm) : boolean => account.alias.toLocaleLowerCase() === value.toLocaleLowerCase()
+    );
+    return accountNameExists
+}
+````
+
+## EXTRA: ELIMINAR CUENTA
+
+Se ha añadido una opción en el desplegable donde se muestra el Listado de Cuentas donde se puede eliminar la cuenta seleccionada.
+
+Para ello se ha implementado un método **DELETE con Axios**. 
+
+![account_list](/public/readme_img/delete-account.PNG)

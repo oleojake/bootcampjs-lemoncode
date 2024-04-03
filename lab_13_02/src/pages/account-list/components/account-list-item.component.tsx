@@ -7,18 +7,18 @@ import { appRoutes } from "@/core/router";
 const ACTION_NONE = "";
 const ACTION_TRANSFER = "1";
 const ACTION_MOVEMENTS = "2";
+const ACTION_DELETE = "3";
 
 interface Props {
   accountItem: AccountVm;
+  onDelete: (id: string) => void;
 }
 
 export const AccountListItemComponent: React.FC<Props> = (props) => {
-  const { accountItem } = props;
+  const { accountItem, onDelete } = props;
   const navigate = useNavigate();
 
-  const handleSelectedOptionChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
+  const handleSelectedOptionChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     switch (e.target.value) {
       case ACTION_TRANSFER:
         navigate(
@@ -33,6 +33,9 @@ export const AccountListItemComponent: React.FC<Props> = (props) => {
             id: accountItem.id,
           })
         );
+        break;
+      case ACTION_DELETE:
+        onDelete(accountItem.id);
         break;
     }
   };
@@ -59,6 +62,7 @@ export const AccountListItemComponent: React.FC<Props> = (props) => {
           <option value={ACTION_NONE}>Seleccionar</option>
           <option value={ACTION_TRANSFER}>Transferir</option>
           <option value={ACTION_MOVEMENTS}>Movimientos</option>
+          <option value={ACTION_DELETE}>Eliminar</option>
         </select>
       </span>
     </div>
