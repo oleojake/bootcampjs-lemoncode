@@ -1,5 +1,5 @@
 import { buildRequiredFieldValidationFailedResponse, buildValidationFailedResult, buildValidationSucceededResult, isDateAfterToday, isEMailWellFormed, isPositiveNumber, isStringValueInformed, isValidIban, isValueNotNullOrUndefined } from "@/common/validations";
-import { INVALID_IBAN_MESSAGE, INVALID_AMOUNT_MESSAGE, INVALID_REAL_DATE_TRANSFER_MESSAGE, INVALID_EMAIL_MESSAGE } from "@/common/validations/validarion.const";
+import { INVALID_IBAN_MESSAGE, INVALID_AMOUNT_MESSAGE, INVALID_REAL_DATE_TRANSFER_MESSAGE, INVALID_EMAIL_MESSAGE } from "@/common/validations/validation.const";
 import { FieldValidationResult } from "@/common/validations/validation.model";
 
 

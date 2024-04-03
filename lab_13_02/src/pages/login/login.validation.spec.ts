@@ -30,7 +30,7 @@ describe("pages/login/login.validation specs", () => {
 
     // Assert
     expect(result.succeeded).toBeFalsy();
-    expect(result.errors.user).toEqual("Debe informar el campo usuario");
+    expect(result.errors.user).toEqual("Debe informar el campo");
     expect(result.errors.password).toEqual("");
   });
 
@@ -47,7 +47,7 @@ describe("pages/login/login.validation specs", () => {
     // Assert
     expect(result.succeeded).toBeFalsy();
     expect(result.errors.user).toEqual("");
-    expect(result.errors.password).toEqual("Debe informar el campo contraseña");
+    expect(result.errors.password).toEqual("Debe informar el campo");
   });
   it("Should return validation failed when both user and password is empty", () => {
     // Arrange
@@ -61,7 +61,7 @@ describe("pages/login/login.validation specs", () => {
 
     // Assert
     expect(result.succeeded).toBeFalsy();
-    expect(result.errors.user).toEqual("Debe informar el campo usuario");
-    expect(result.errors.password).toEqual("Debe informar el campo contraseña");
+    expect(result.errors.user).toEqual("Debe informar el campo");
+    expect(result.errors.password).toEqual("Debe informar el campo");
   });
 });
