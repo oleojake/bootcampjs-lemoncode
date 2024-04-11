@@ -30,32 +30,34 @@ const reservas : Reserva[] = [
 
 class ClienteReserva {
     reservas : Reserva [];
-    precioNocheStandar : number;
-    precioNocheSuite : number;
     precioPorPersona : number
     precioDesayuno: number;
 
     constructor (reservas : Reserva []) {
         this.reservas = reservas;
-        this.precioNocheStandar = 100;
-        this.precioNocheSuite = 150;
         this.precioPorPersona = 40;
         this.precioDesayuno = 15;
     }
 
-    get subtotal() {
-        let acc = 0;
-        for (let i = 0 ; i < this.reservas.length; i++) {
-            if (this.reservas[i].tipoHabitacion === "standard"){
-                acc += this.precioNocheStandar * this.reservas[i].noches + (this.precioPorPersona * this.reservas[i].pax);
-            } else if(this.reservas[i].tipoHabitacion === "suite"){
-                acc += this.precioNocheSuite * this.reservas[i].noches + (this.precioPorPersona * this.reservas[i].pax);
-            }
-            if(this.reservas[i].desayuno) {
-                acc += this.precioDesayuno * this.reservas[i].pax * this.reservas[i].noches
-            }
+    obtenerPrecioPorTipoHabitacion = (tipoHabitacion : string): number => {
+        switch(tipoHabitacion){
+            case "standard":
+                return 100;
+            case "suite":
+                return 150;
+            default:
+                return 0;
         }
-        return Number(acc.toFixed(2));
+    }
+
+
+    get subtotal() {
+        return Number(this.reservas.reduce((acc, reserva) => {
+            const precioSinDesayuno =  acc + reserva.noches * this.obtenerPrecioPorTipoHabitacion(reserva.tipoHabitacion) + (reserva.pax - 1) * this.precioPorPersona;
+            return (reserva.desayuno)
+                ? precioSinDesayuno + this.precioDesayuno * reserva.pax
+                : precioSinDesayuno;
+        },0).toFixed(2));
     }
 
     get total() {
@@ -81,13 +83,22 @@ class ClienteOperador extends ClienteReserva {
 
     constructor (reservas : Reserva []) {
         super(reservas);
-        this.precioNocheStandar = 100;
-        this.precioNocheSuite = 100;
         this.descuento = 15;
     }
 
+    obtenerPrecioPorTipoHabitacion = (tipoHabitacion : string): number => {
+        switch(tipoHabitacion){
+            case "standard":
+                return 100;
+            case "suite":
+                return 100;
+            default:
+                return 0;
+        }
+    }
+
     get subtotal() {
-        return (super.subtotal * (100 - this.descuento)) / 100
+        return Number(((super.subtotal * (100 - this.descuento)) / 100).toFixed(2));
     }
     
 }
